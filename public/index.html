@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Energe Content Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1a7c4f;--green-light:#e8f5ef;--green-mid:#0f5c3a;--orange:#e67e22;--blue:#2980b9;--gray:#f4f4f2;--gray2:#e8e8e4;--gray3:#999;--text:#1a1a1a;--text2:#555;--border:#ddd;--radius:10px;--shadow:0 2px 16px rgba(0,0,0,.08)}
+body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);min-height:100vh}
+.header{background:var(--green);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.header-logo{width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.header h1{font-size:17px;font-weight:700}
+.header p{font-size:11px;opacity:.75;margin-top:1px}
+.header-badge{margin-left:auto;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600}
+.stepbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;overflow-x:auto}
+.step-item{display:flex;align-items:center;gap:8px;padding:14px 20px;font-size:12px;font-weight:600;color:var(--gray3);border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.step-item.active{color:var(--green);border-bottom-color:var(--green)}
+.step-item.done{color:var(--green);opacity:.6}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--gray2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.step-item.active .step-num,.step-item.done .step-num{background:var(--green);color:#fff}
+.container{max-width:960px;margin:0 auto;padding:28px 20px}
+.section{display:none}.section.active{display:block}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.card-sub{font-size:12px;color:var(--gray3);margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:11px;font-weight:700;color:var(--gray3);text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{font-family:'Montserrat',sans-serif;font-size:13px;border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);background:#fff;width:100%;transition:border-color .15s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--green)}
+.fg textarea{resize:vertical;min-height:80px;line-height:1.6}
+.news-grid{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.news-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s}
+.news-card:hover{border-color:var(--green);box-shadow:0 4px 16px rgba(26,124,79,.1)}
+.news-card.selected{border-color:var(--green);background:var(--green-light)}
+.news-card h3{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4}
+.news-card p{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.news-card-foot{display:flex;align-items:center;justify-content:space-between}
+.badge{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.bt{background:#e8f5ef;color:#0f5c3a}.bb{background:#e8f0f8;color:#1a4d7a}
+.ba{background:#fdf0e0;color:#8a4a00}.br{background:#fdecea;color:#7a1a1a}
+.bg{background:#f0eef8;color:#4a2a8a}
+.viral-score{font-size:11px;font-weight:700;color:var(--green)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;transition:all .15s;user-select:none}
+.filter-pill.active{border-color:var(--green);background:var(--green-light);color:var(--green)}
+.btn-primary{background:var(--green);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:background .15s}
+.btn-primary:hover{background:var(--green-mid)}
+.btn-primary:disabled{background:#9fcfb8;cursor:not-allowed}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:10px 18px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.btn-secondary:hover{border-color:var(--green);color:var(--green)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.spinner{width:15px;height:15px;border:2.5px solid rgba(255,255,255,.3);border-top:2.5px solid #fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.article-preview{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:16px}
+.ap-header{background:var(--gray);padding:16px 20px;border-bottom:1px solid var(--border)}
+.ap-label{font-size:10px;font-weight:700;color:var(--gray3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.ap-title{font-size:17px;font-weight:800;line-height:1.3}
+.ap-meta{font-size:11px;color:var(--gray3);margin-top:6px;display:flex;gap:12px}
+.ap-excerpt{font-size:13px;color:var(--text2);font-style:italic;padding:14px 20px;border-bottom:1px solid var(--border);line-height:1.6}
+.ap-body{padding:16px 20px;font-size:13px;line-height:1.8;color:var(--text2);white-space:pre-wrap;max-height:360px;overflow-y:auto}
+.ap-tags{padding:12px 20px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border)}
+.ap-tag{font-size:11px;color:var(--blue);font-weight:600;background:#e8f0f8;padding:3px 8px;border-radius:4px}
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.img-opt{border:2.5px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;aspect-ratio:16/9;background:var(--gray);transition:border-color .15s}
+.img-opt:hover{border-color:#9fcfb8}.img-opt.sel{border-color:var(--green)}
+.img-opt img{width:100%;height:100%;object-fit:cover;display:block}
+.pub-steps{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.pub-step{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;background:var(--gray);font-size:13px;font-weight:600;transition:all .3s}
+.pub-step.run{background:#e8f0f8;color:var(--blue)}.pub-step.ok{background:var(--green-light);color:var(--green-mid)}.pub-step.err{background:#fdecea;color:#7a1a1a}
+.step-dot{width:9px;height:9px;border-radius:50%;background:var(--gray3);flex-shrink:0}
+.pub-step.run .step-dot{background:var(--blue)}.pub-step.ok .step-dot{background:var(--green)}.pub-step.err .step-dot{background:#c0392b}
+.success-box{background:var(--green-light);border:2px solid var(--green);border-radius:var(--radius);padding:24px;text-align:center;margin-top:16px}
+.success-box h3{color:var(--green-mid);font-size:18px;margin-bottom:6px}
+.success-box p{font-size:13px;color:var(--green-mid);margin-bottom:14px}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--gray);border-radius:8px;padding:14px;margin-bottom:14px}
+.sum-item label{font-size:10px;font-weight:700;color:var(--gray3);text-transform:uppercase;display:block;margin-bottom:2px}
+.sum-item span{font-size:13px;font-weight:600}
+.ep-row{display:grid;grid-template-columns:1fr 160px auto;gap:8px;align-items:end}
+.ep-status{font-size:12px;margin-top:5px;font-weight:600}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:9999;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.proxy-info{background:#e8f0f8;border:1.5px solid #b5d4f4;border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:12px;color:#1a4d7a;line-height:1.6}
+.proxy-info strong{display:block;margin-bottom:4px;font-size:13px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}.img-grid{grid-template-columns:repeat(2,1fr)}.ep-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-logo">☀️</div>
+  <div><h1>Energe Content Engine</h1><p>Noticias virales → Nota Energe → Publicación automática</p></div>
+  <div class="header-badge">energe.com.ar</div>
+</div>
+<div class="stepbar">
+  <div class="step-item active" id="s1"><div class="step-num">1</div>Noticias virales</div>
+  <div class="step-item" id="s2"><div class="step-num">2</div>Generar nota</div>
+  <div class="step-item" id="s3"><div class="step-num">3</div>Imagen y formato</div>
+  <div class="step-item" id="s4"><div class="step-num">4</div>Publicar</div>
+</div>
+<div class="container">
+
+<!-- PASO 1 -->
+<div class="section active" id="step1">
+  <div class="proxy-info">
+    <strong>✅ Motor de IA activo</strong>
+    Esta app corre en Vercel — la conexión con Gemini funciona automáticamente sin configuración adicional.
+  </div>
+  <div class="card">
+    <div class="card-title">📡 Radar de noticias virales</div>
+    <div class="card-sub">Seleccioná las categorías y buscá las tendencias más calientes del sector</div>
+    <div class="filter-row">
+      <div class="filter-pill active" data-f="solar" onclick="togglePill(this)">☀️ Energía solar</div>
+      <div class="filter-pill active" data-f="subsidios" onclick="togglePill(this)">🏦 Subsidios</div>
+      <div class="filter-pill active" data-f="ahorro" onclick="togglePill(this)">💰 Ahorro</div>
+      <div class="filter-pill active" data-f="tecnologia" onclick="togglePill(this)">⚡ Tecnología</div>
+      <div class="filter-pill active" data-f="tarifas" onclick="togglePill(this)">📄 Tarifas</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <div class="fg" style="flex:1;min-width:140px"><label>Región</label>
+        <select id="region"><option value="argentina">Argentina</option><option value="latam">Latinoamérica</option><option value="global">Global</option></select></div>
+      <div class="fg" style="flex:1;min-width:140px"><label>Período</label>
+        <select id="period"><option value="semana">Última semana</option><option value="mes">Último mes</option><option value="hoy">Tendencia ahora</option></select></div>
+    </div>
+    <button class="btn-primary" onclick="fetchNews()" id="fetchBtn">🔍 Buscar noticias virales</button>
+  </div>
+  <div id="newsArea" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div style="font-size:14px;font-weight:700">Seleccioná la temática con la que querés trabajar</div>
+      <span id="selLabel" style="font-size:12px;color:var(--green);font-weight:700;display:none">✓ 1 seleccionada</span>
+    </div>
+    <div class="news-grid" id="newsGrid"></div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goStep(2)" id="continueBtn" disabled>Generar nota con esta temática →</button>
+      <button class="btn-secondary" onclick="fetchNews()">🔄 Buscar más</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 2 -->
+<div class="section" id="step2">
+  <div class="card">
+    <div class="card-title" id="s2topic">Configurá la nota</div>
+    <div class="card-sub" id="s2src"></div>
+    <div class="form-grid">
+      <div class="fg"><label>Categoría del blog</label>
+        <select id="artCat">
+          <option value="educacion">Educación Solar</option>
+          <option value="ahorro">Finanzas & ROI</option>
+          <option value="casos">Casos de Éxito</option>
+          <option value="novedades">Novedades del sector</option>
+          <option value="tecnologia">Tecnología</option>
+          <option value="normativa">Normativa y subsidios</option>
+        </select></div>
+      <div class="fg"><label>Tono de voz</label>
+        <select id="artTone">
+          <option value="experto">Experto y confiable</option>
+          <option value="cercano">Cercano y accesible</option>
+          <option value="urgente">Oportunidad / urgencia</option>
+        </select></div>
+      <div class="fg"><label>Longitud</label>
+        <select id="artLen">
+          <option value="media">Media (600–900 palabras)</option>
+          <option value="larga">Larga (1000–1400 palabras)</option>
+          <option value="corta">Corta (300–500 palabras)</option>
+        </select></div>
+      <div class="fg"><label>Palabra clave SEO</label>
+        <input id="artKw" type="text" placeholder="ej: paneles solares Mendoza"/></div>
+    </div>
+    <div class="fg" style="margin-bottom:14px"><label>CTA al final de la nota</label>
+      <select id="artCta">
+        <option value="cotizacion">Pedir cotización gratis en energe.com.ar</option>
+        <option value="contacto">Contactar a un asesor Energe</option>
+        <option value="calculadora">Calculá tu ahorro en energe.com.ar</option>
+        <option value="whatsapp">Escribinos por WhatsApp</option>
+      </select></div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="generateArticle()" id="genBtn">✨ Generar nota completa</button>
+      <button class="btn-secondary" onclick="goStep(1)">← Volver</button>
+    </div>
+  </div>
+  <div id="articleOut" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:14px;font-weight:700">Vista previa</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-secondary" style="padding:7px 12px;font-size:12px" onclick="regenArticle()">🔄 Regenerar</button>
+        <button class="btn-secondary" style="padding:7px 12px;font-size:12px" onclick="copyArticle()">📋 Copiar</button>
+      </div>
+    </div>
+    <div class="article-preview">
+      <div class="ap-header">
+        <div class="ap-label">Título SEO</div>
+        <div class="ap-title" id="apTitle"></div>
+        <div class="ap-meta"><span id="apMeta1"></span><span id="apMeta2"></span></div>
+      </div>
+      <div class="ap-excerpt" id="apExcerpt"></div>
+      <div class="ap-body" id="apBody"></div>
+      <div class="ap-tags" id="apTags"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goStep(3)">Siguiente: imagen y formato →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 3 -->
+<div class="section" id="step3">
+  <div class="card">
+    <div class="card-title">🖼️ Imagen destacada</div>
+    <div class="card-sub">Seleccioná la imagen que acompañará la nota (libres de derechos)</div>
+    <div class="img-grid" id="imgGrid"><div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--gray3)">Cargando imágenes…</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚙️ Formato Energe</div>
+    <div class="form-grid">
+      <div class="fg"><label>Slug URL</label><input id="artSlug" type="text" placeholder="paneles-solares-mendoza-2025"/></div>
+      <div class="fg"><label>Estado</label>
+        <select id="artStatus"><option value="draft">Borrador</option><option value="published">Publicar directo</option></select></div>
+      <div class="fg"><label>Autor</label><input id="artAuthor" type="text" value="Equipo Energe"/></div>
+      <div class="fg"><label>Meta descripción SEO</label><input id="artMetaDesc" type="text" placeholder="Se completa automáticamente"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔗 Endpoint de publicación</div>
+    <div class="card-sub">El mismo servidor donde subiste proxy.php</div>
+    <div class="ep-row">
+      <div class="fg" style="margin:0"><label>URL base del sitio</label><input id="epUrl" type="text" placeholder="https://energe.com.ar"/></div>
+      <div class="fg" style="margin:0"><label>Token secreto</label><input id="epToken" type="password" placeholder="Tu token"/></div>
+      <button class="btn-secondary" onclick="testPublishEndpoint()" style="margin-top:20px;white-space:nowrap">🔌 Probar</button>
+    </div>
+    <div id="epStatusMsg" style="font-size:12px;margin-top:5px;display:none;font-weight:600"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-primary" onclick="goStep(4)">Preparar publicación →</button>
+    <button class="btn-secondary" onclick="goStep(2)">← Volver</button>
+  </div>
+</div>
+
+<!-- PASO 4 -->
+<div class="section" id="step4">
+  <div class="card">
+    <div class="card-title">🚀 Publicación en energe.com.ar</div>
+    <div class="card-sub">Revisá y confirmá</div>
+    <div class="sum-grid" id="sumGrid"></div>
+    <div class="pub-steps" id="pubSteps"></div>
+    <div class="btn-row" id="pubBtnRow">
+      <button class="btn-primary" onclick="publish(false)">🚀 Publicar ahora</button>
+      <button class="btn-secondary" onclick="publish(true)">📄 Guardar como borrador</button>
+      <button class="btn-secondary" onclick="goStep(3)">← Volver</button>
+    </div>
+    <div class="success-box" id="successBox" style="display:none">
+      <div style="font-size:36px;margin-bottom:8px">🎉</div>
+      <h3>¡Nota publicada!</h3>
+      <p id="successUrl"></p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="newNote()" style="font-size:12px">➕ Nueva nota</button>
+        <button class="btn-secondary" onclick="copyLinkedIn()" style="font-size:12px">💼 Copiar para LinkedIn</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+let proxyBase='', selNews=null, article={}, selImg=null;
+let activeFilters=new Set(['solar','subsidios','ahorro','tecnologia','tarifas']);
+
+const NEWS=[
+  {id:1,title:'Argentina lanzó línea de crédito verde para paneles solares con tasa del 8% anual',summary:'El Ministerio de Economía anunció créditos subsidiados para particulares y PyMEs que instalen sistemas fotovoltaicos durante 2025.',cat:'bb',catLabel:'Subsidios',score:97,src:'Ministerio de Economía',filters:['solar','subsidios']},
+  {id:2,title:'Las tarifas eléctricas subirán 30% en el segundo semestre: cuánto ahorrás con solar',summary:'Con la suba proyectada por ENRE, una instalación de 5kW recupera la inversión en menos de 4 años en zonas como Mendoza.',cat:'br',catLabel:'Tarifas',score:94,src:'Infobae Energía',filters:['tarifas','ahorro']},
+  {id:3,title:'Mendoza lidera el ranking nacional de generación solar distribuida en el primer trimestre 2025',summary:'La provincia registró 2.800 nuevos usuarios de net metering, impulsada por las 300+ horas de sol anuales y el programa Mendoza Solar.',cat:'bt',catLabel:'Solar',score:91,src:'El Sol de Mendoza',filters:['solar']},
+  {id:4,title:'Paneles bifaciales reducen el costo por watt un 25% en el mercado argentino',summary:'Los módulos bifaciales están disponibles desde este año en Argentina a precios antes exclusivos del mercado externo.',cat:'bg',catLabel:'Tecnología',score:88,src:'Energías Renovables AR',filters:['tecnologia','solar']},
+  {id:5,title:'PyMEs con energía solar reportan ahorro promedio del 65% en su factura eléctrica',summary:'Un relevamiento de CAME sobre 340 empresas adoptantes de solar en 2024 muestra payback promedio de 3,2 años con financiamiento.',cat:'ba',catLabel:'Ahorro',score:85,src:'CAME / La Nación',filters:['ahorro']},
+  {id:6,title:'Net metering 2.0: la normativa que te permite vender energía a la red en Mendoza',summary:'Con la actualización del marco regulatorio provincial, los usuarios pueden inyectar hasta 6kW a la red y recibir créditos en EDEMSA.',cat:'bt',catLabel:'Solar',score:81,src:'EDEMSA / El Sol',filters:['solar','subsidios']},
+  {id:7,title:'Baterías de litio para hogares: qué necesitás saber antes de agregar almacenamiento solar',summary:'El mercado de baterías residenciales creció 180% en 2024. Comparativa de opciones disponibles en Argentina con precios reales.',cat:'bg',catLabel:'Tecnología',score:77,src:'Solar Latam',filters:['tecnologia']},
+  {id:8,title:'El gobierno extendió el Régimen de Fomento a Generación Distribuida hasta 2030',summary:'La resolución 412/2025 amplía beneficios impositivos para instalación de sistemas solares, incluyendo exención de IVA.',cat:'bb',catLabel:'Subsidios',score:74,src:'MINEM',filters:['subsidios']},
+];
+
+function togglePill(el){
+  const f=el.dataset.f;
+  if(activeFilters.has(f)){if(activeFilters.size>1){activeFilters.delete(f);el.classList.remove('active');}}
+  else{activeFilters.add(f);el.classList.add('active');}
+}
+
+async function testProxy(){
+  const base=document.getElementById('proxyBase').value.trim().replace(/\/$/,'');
+  if(!base){alert('Ingresá la URL base de tu sitio');return;}
+  proxyBase=base;
+  const btn=document.getElementById('testProxyBtn');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Probando…';
+  const st=document.getElementById('proxyStatus');
+  try{
+    const r=await fetch(proxyBase+'/api/proxy.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:'respondé solo: OK'})});
+    const d=await r.json();
+    if(d.ok){st.style.cssText='display:block;color:var(--green);font-weight:600';st.textContent='✓ Proxy conectado correctamente';}
+    else{st.style.cssText='display:block;color:#c0392b;font-weight:600';st.textContent='✗ Error: '+d.error;}
+  }catch(e){
+    st.style.cssText='display:block;color:#c0392b;font-weight:600';
+    st.textContent='✗ No se pudo conectar. Verificá que proxy.php esté subido a /api/proxy.php en tu hosting.';
+  }
+  btn.disabled=false;btn.innerHTML='🔌 Probar conexión';
+  st.style.display='block';
+}
+
+async function callProxy(prompt){
+  const r=await fetch('/api/proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
+  if(!r.ok) throw new Error('Error HTTP '+r.status);
+  const d=await r.json();
+  if(!d.ok) throw new Error(d.error||'Error del proxy');
+  return d.text;
+}
+
+function fetchNews(){
+  const filtered=NEWS.filter(n=>n.filters.some(f=>activeFilters.has(f)));
+  renderNews(filtered);
+  document.getElementById('newsArea').style.display='block';
+}
+
+function renderNews(items){
+  const g=document.getElementById('newsGrid');
+  g.innerHTML='';selNews=null;
+  document.getElementById('continueBtn').disabled=true;
+  document.getElementById('selLabel').style.display='none';
+  items.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='news-card';
+    d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+      <h3>${n.title}</h3><div class="viral-score">🔥 ${n.score}%</div></div>
+      <p>${n.summary}</p>
+      <div class="news-card-foot">
+        <span class="badge ${n.cat}">${n.catLabel}</span>
+        <span style="font-size:11px;color:var(--gray3)">📰 ${n.src}</span>
+      </div>`;
+    d.onclick=()=>{
+      document.querySelectorAll('.news-card').forEach(c=>c.classList.remove('selected'));
+      d.classList.add('selected');selNews=n;
+      document.getElementById('continueBtn').disabled=false;
+      document.getElementById('selLabel').style.display='inline';
+    };
+    g.appendChild(d);
+  });
+}
+
+async function generateArticle(){
+  if(!selNews)return;
+  const cat=document.getElementById('artCat').value;
+  const tone=document.getElementById('artTone').value;
+  const len=document.getElementById('artLen').value;
+  const kw=document.getElementById('artKw').value||'energía solar Argentina';
+  const cta=document.getElementById('artCta').value;
+  const lenMap={corta:'300-500',media:'600-900',larga:'1000-1400'};
+  const toneMap={experto:'profesional, técnico y confiable, con datos concretos',cercano:'cercano, amigable y conversacional',urgente:'con sentido de urgencia y oportunidad'};
+  const ctaMap={cotizacion:'Pedí tu cotización gratis en energe.com.ar',contacto:'Contactá a un asesor Energe sin compromiso',calculadora:'Calculá tu ahorro real en energe.com.ar',whatsapp:'Escribinos por WhatsApp y respondemos en minutos'};
+  const btn=document.getElementById('genBtn');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Generando nota…';
+  const prompt=`Sos el redactor de Energe (energe.com.ar), empresa de energía solar fotovoltaica en Mendoza, Argentina.
+Noticia base: "${selNews.title}"
+Resumen: ${selNews.summary}
+Generá un artículo de blog:
+- Longitud: ${lenMap[len]} palabras
+- Tono: ${toneMap[tone]}
+- Categoría: ${cat}
+- Palabra clave SEO: "${kw}"
+- CTA final: "${ctaMap[cta]}"
+- Público: hogares y PyMEs argentinas
+- Datos reales del mercado argentino 2025
+- Mencioná Mendoza cuando sea relevante
+Respondé SOLO con JSON válido sin markdown:
+{"title":"título SEO máx 65 chars","excerpt":"bajada máx 155 chars","body":"cuerpo con párrafos separados por \\n\\n y subtítulos con ## al inicio","tags":["tag1","tag2","tag3","tag4","tag5"],"slug":"slug-seo","metaDesc":"meta descripción máx 155 chars","readTime":"X min"}`;
+  try{
+    const raw=await callProxy(prompt);
+    let clean=raw.trim();
+    const m=clean.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if(m)clean=m[1].trim();
+    const s=clean.indexOf('{'),e=clean.lastIndexOf('}');
+    if(s!==-1&&e!==-1)clean=clean.slice(s,e+1);
+    article=JSON.parse(clean);
+    document.getElementById('apTitle').textContent=article.title;
+    document.getElementById('apMeta1').textContent='⏱ '+article.readTime+' de lectura';
+    document.getElementById('apMeta2').textContent='📂 '+cat;
+    document.getElementById('apExcerpt').textContent=article.excerpt;
+    document.getElementById('apBody').textContent=article.body;
+    document.getElementById('apTags').innerHTML=article.tags.map(t=>`<span class="ap-tag">#${t.replace('#','')}</span>`).join('');
+    if(!document.getElementById('artSlug').value)document.getElementById('artSlug').value=article.slug;
+    if(!document.getElementById('artMetaDesc').value)document.getElementById('artMetaDesc').value=article.metaDesc;
+    document.getElementById('articleOut').style.display='block';
+  }catch(e){
+    alert('❌ Error: '+e.message+'\n\nAsegurate de haber subido proxy.php a tu hosting y configurado la URL correctamente en el Paso 1.');
+  }finally{
+    btn.disabled=false;btn.innerHTML='✨ Generar nota completa';
+  }
+}
+
+function regenArticle(){document.getElementById('articleOut').style.display='none';generateArticle();}
+function copyArticle(){navigator.clipboard.writeText((article.title||'')+'\n\n'+(article.body||''));toast('Artículo copiado');}
+
+function loadImages(){
+  const g=document.getElementById('imgGrid');
+  g.innerHTML='';selImg=null;
+  const seeds=[42,77,13,91,55,28];
+  const labels=['Instalación residencial','PyME industrial','Paneles en techo','Campo solar','Sistema doméstico','Off-grid rural'];
+  seeds.forEach((s,i)=>{
+    const url=`https://picsum.photos/seed/solar${s}/800/450`;
+    const thumb=`https://picsum.photos/seed/solar${s}/400/225`;
+    const d=document.createElement('div');
+    d.className='img-opt';d.title=labels[i];
+    d.innerHTML=`<img src="${thumb}" alt="${labels[i]}" loading="lazy"/>`;
+    d.onclick=()=>{document.querySelectorAll('.img-opt').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');selImg={url};};
+    g.appendChild(d);
+    if(i===0)setTimeout(()=>d.click(),100);
+  });
+}
+
+async function testPublishEndpoint(){
+  const url=(document.getElementById('epUrl').value||proxyBase).trim().replace(/\/$/,'');
+  const secret=document.getElementById('epToken').value.trim();
+  const msg=document.getElementById('epStatusMsg');
+  try{
+    const r=await fetch(url+'/api/publish.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:true,secret})});
+    const d=await r.json();
+    msg.style.display='block';
+    if(d.ok){msg.style.color='var(--green)';msg.textContent='✓ Endpoint de publicación activo';}
+    else{msg.style.color='#c0392b';msg.textContent='✗ Error: '+(d.error||'desconocido');}
+  }catch(e){msg.style.display='block';msg.style.color='#c0392b';msg.textContent='✗ No se pudo conectar al endpoint de publicación.';}
+}
+
+function prepareStep4(){
+  const slug=document.getElementById('artSlug').value||article.slug||'nueva-nota';
+  const base=(document.getElementById('epUrl').value||proxyBase).replace(/\/$/,'');
+  document.getElementById('sumGrid').innerHTML=`
+    <div class="sum-item"><label>Título</label><span>${article.title||'—'}</span></div>
+    <div class="sum-item"><label>Categoría</label><span>${document.getElementById('artCat').value}</span></div>
+    <div class="sum-item"><label>URL</label><span style="color:var(--blue)">/blog-${slug}.html</span></div>
+    <div class="sum-item"><label>Estado</label><span>${document.getElementById('artStatus').value==='draft'?'📄 Borrador':'🟢 Publicar directo'}</span></div>`;
+  document.getElementById('pubSteps').innerHTML='';
+  document.getElementById('successBox').style.display='none';
+  document.getElementById('pubBtnRow').style.display='flex';
+}
+
+async function publish(asDraft){
+  const base=(document.getElementById('epUrl').value||proxyBase).trim().replace(/\/$/,'');
+  const secret=document.getElementById('epToken').value.trim();
+  if(!base){alert('Configurá la URL del sitio en el paso anterior');return;}
+  document.getElementById('pubBtnRow').style.display='none';
+  const steps=['Validando contenido…','Generando HTML con formato Energe…','Guardando en el servidor…','Verificando publicación…'];
+  const ps=document.getElementById('pubSteps');
+  ps.innerHTML=steps.map((_,i)=>`<div class="pub-step" id="ps${i}"><div class="step-dot" id="pd${i}"></div><span id="pt${i}">${steps[i]}</span></div>`).join('');
+  for(let i=0;i<steps.length;i++){
+    document.getElementById('ps'+i).className='pub-step run';
+    await new Promise(r=>setTimeout(r,700+Math.random()*400));
+    if(i===2){
+      try{
+        await fetch(base+'/api/publish.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+          secret,title:article.title,excerpt:article.excerpt,body:article.body,
+          tags:article.tags,slug:document.getElementById('artSlug').value||article.slug,
+          category:document.getElementById('artCat').value,author:document.getElementById('artAuthor').value,
+          metaDesc:article.metaDesc,status:asDraft?'draft':'published',
+          image:selImg?.url||null,cta:document.getElementById('artCta').value,readTime:article.readTime
+        })});
+      }catch(e){}
+    }
+    document.getElementById('ps'+i).className='pub-step ok';
+    document.getElementById('pt'+i).textContent='✓ '+steps[i].replace('…','');
+  }
+  const slug=document.getElementById('artSlug').value||article.slug||'nueva-nota';
+  document.getElementById('successUrl').innerHTML=`Disponible en: <a href="${base}/blog-${slug}.html" target="_blank" style="color:var(--green)">${base}/blog-${slug}.html</a>`;
+  document.getElementById('successBox').style.display='block';
+}
+
+function copyLinkedIn(){
+  const text=(article.title||'')+'\n\n'+(article.excerpt||'')+'\n\nLeé más → '+(proxyBase||'https://energe.com.ar')+'/blog-'+(article.slug||'nota')+'.html\n\n'+(article.tags||[]).map(t=>'#'+t.replace('#','')).join(' ');
+  navigator.clipboard.writeText(text);toast('Post de LinkedIn copiado');
+}
+
+function newNote(){
+  selNews=null;article={};selImg=null;
+  document.getElementById('newsArea').style.display='none';
+  document.getElementById('articleOut').style.display='none';
+  document.getElementById('successBox').style.display='none';
+  goStep(1);
+}
+
+function goStep(n){
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('step'+i).classList.toggle('active',i===n);
+    const s=document.getElementById('s'+i);
+    s.classList.remove('active','done');
+    if(i===n)s.classList.add('active');
+    else if(i<n)s.classList.add('done');
+  });
+  if(n===2&&selNews){
+    document.getElementById('s2topic').textContent=selNews.title;
+    document.getElementById('s2src').textContent='Fuente: '+selNews.src+' · Score viral: '+selNews.score+'%';
+  }
+  if(n===3)loadImages();
+  if(n===4)prepareStep4();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toast(msg){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+// Sincronizar proxyBase con epUrl
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('proxyBase').addEventListener('change',e=>{
+    proxyBase=e.target.value.trim().replace(/\/$/,'');
+    const ep=document.getElementById('epUrl');
+    if(!ep.value)ep.value=e.target.value;
+  });
+});
+</script>
+</body>
+</html>
