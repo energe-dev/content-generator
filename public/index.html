@@ -3,95 +3,694 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Energe Content Engine</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<title>Energe Content Engine | Panel de Redacción</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--green:#1a7c4f;--green-light:#e8f5ef;--green-mid:#0f5c3a;--orange:#e67e22;--blue:#2980b9;--gray:#f4f4f2;--gray2:#e8e8e4;--gray3:#999;--text:#1a1a1a;--text2:#555;--border:#ddd;--radius:10px;--shadow:0 2px 16px rgba(0,0,0,.08)}
-body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);min-height:100vh}
-.header{background:var(--green);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
-.header-logo{width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.header h1{font-size:17px;font-weight:700}
-.header p{font-size:11px;opacity:.75;margin-top:1px}
-.header-badge{margin-left:auto;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600}
-.stepbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;overflow-x:auto}
-.step-item{display:flex;align-items:center;gap:8px;padding:14px 20px;font-size:12px;font-weight:600;color:var(--gray3);border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
-.step-item.active{color:var(--green);border-bottom-color:var(--green)}
-.step-item.done{color:var(--green);opacity:.6}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--gray2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.step-item.active .step-num,.step-item.done .step-num{background:var(--green);color:#fff}
-.container{max-width:960px;margin:0 auto;padding:28px 20px}
+:root{
+  --orange:#d4721a;
+  --orange-light:#fdf0e0;
+  --orange-mid:#b55b10;
+  --slate:#2c3e50;
+  --slate-light:#eef2f5;
+  --bg-main:#f8f9fa;
+  --bg-card:#ffffff;
+  --text:#2c3e50;
+  --text-muted:#7f8c8d;
+  --border:#e2e8f0;
+  --radius:12px;
+  --shadow:0 10px 30px rgba(0, 0, 0, 0.03);
+  
+  /* Mapeo interno de variables para compatibilidad lógica del script */
+  --green:#d4721a;
+  --green-light:#fdf0e0;
+  --green-mid:#b55b10;
+  --blue:#2980b9;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--bg-main);color:var(--text);min-height:100vh}
+
+/* Cabecera corporativa idéntica al sitio real */
+.header{
+  background:#ffffff;
+  color:var(--slate);
+  padding:18px 32px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.02);
+  border-bottom:3px solid var(--orange); /* Iconic orange filete in active headers */
+}
+.header-logo-container img{
+  display:block;
+  max-width:150px;
+  height:auto;
+}
+.header-title-box h1{
+  font-size:15px;
+  font-weight:900;
+  color:var(--slate);
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+}
+.header-title-box p{
+  font-size:10px;
+  color:var(--text-muted);
+  margin-top:2px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.header-badge{
+  margin-left:auto;
+  background:var(--orange-light);
+  color:var(--orange);
+  border-radius:20px;
+  padding:6px 14px;
+  font-size:11px;
+  font-weight:800;
+  border:1px solid rgba(212,114,26,0.18);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+/* Barra de Pasos Corporativa */
+.stepbar{
+  background:#ffffff;
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  display:flex;
+  overflow-x:auto;
+  gap:8px;
+}
+.step-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:20px 24px;
+  font-size:11px;
+  font-weight:800;
+  color:var(--text-muted);
+  border-bottom:3px solid transparent;
+  white-space:nowrap;
+  transition:all .25s ease;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  cursor:pointer;
+}
+.step-item.active{
+  color:var(--orange);
+  border-bottom-color:var(--orange);
+}
+.step-item.done{
+  color:var(--slate);
+  opacity:.85;
+}
+.step-num{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#edf2f7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:900;
+  flex-shrink:0;
+  transition:all 0.25s ease;
+  color:var(--text-muted);
+}
+.step-item.active .step-num{
+  background:var(--orange);
+  color:#ffffff;
+  box-shadow:0 4px 8px rgba(212,114,26,0.25);
+}
+.step-item.done .step-num{
+  background:var(--slate);
+  color:#ffffff;
+}
+
+.container{max-width:960px;margin:0 auto;padding:32px 24px}
 .section{display:none}.section.active{display:block}
-.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px}
-.card-title{font-size:15px;font-weight:700;margin-bottom:4px}
-.card-sub{font-size:12px;color:var(--gray3);margin-bottom:18px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.fg{display:flex;flex-direction:column;gap:5px}
-.fg label{font-size:11px;font-weight:700;color:var(--gray3);text-transform:uppercase;letter-spacing:.5px}
-.fg input,.fg select,.fg textarea{font-family:'Montserrat',sans-serif;font-size:13px;border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);background:#fff;width:100%;transition:border-color .15s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--green)}
-.fg textarea{resize:vertical;min-height:80px;line-height:1.6}
-.news-grid{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-.news-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s}
-.news-card:hover{border-color:var(--green);box-shadow:0 4px 16px rgba(26,124,79,.1)}
-.news-card.selected{border-color:var(--green);background:var(--green-light)}
-.news-card h3{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4}
-.news-card p{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+
+/* Tarjetas y Contenedores */
+.card{
+  background:var(--bg-card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:32px;
+  margin-bottom:24px;
+  border:1px solid rgba(212,114,26,0.03);
+}
+.card-title{font-size:18px;font-weight:900;color:var(--slate);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.card-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px;font-weight:500}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:11px;font-weight:800;color:var(--slate);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px}
+.fg input,.fg select,.fg textarea{
+  font-family:'Montserrat',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:12px 16px;
+  color:var(--text);
+  background:#ffffff;
+  width:100%;
+  transition:all .2s ease;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  outline:none;
+  border-color:var(--orange);
+  box-shadow:0 0 0 3px rgba(212,114,26,0.08);
+}
+.fg textarea{resize:vertical;min-height:100px;line-height:1.6}
+
+/* Listado de noticias (Estilo Grilla Corporativa) */
+.news-grid{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.news-card{
+  background:#ffffff;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.news-card:hover{
+  border-color:var(--orange);
+  box-shadow:0 6px 20px rgba(212,114,26,0.06);
+  transform:translateY(-1px);
+}
+.news-card.selected{
+  border-color:var(--orange);
+  background:var(--orange-light);
+}
+.news-card h3{font-size:15px;font-weight:800;margin-bottom:8px;line-height:1.4;color:var(--slate)}
+.news-card p{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
 .news-card-foot{display:flex;align-items:center;justify-content:space-between}
-.badge{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.bt{background:#e8f5ef;color:#0f5c3a}.bb{background:#e8f0f8;color:#1a4d7a}
-.ba{background:#fdf0e0;color:#8a4a00}.br{background:#fdecea;color:#7a1a1a}
+.badge{display:inline-flex;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
+.bt{background:var(--orange-light);color:var(--orange)}
+.bb{background:#e8f0f8;color:#1a4d7a}
+.ba{background:#fdf0e0;color:#8a4a00}
+.br{background:#fdecea;color:#7a1a1a}
 .bg{background:#f0eef8;color:#4a2a8a}
-.viral-score{font-size:11px;font-weight:700;color:var(--green)}
-.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;transition:all .15s;user-select:none}
-.filter-pill.active{border-color:var(--green);background:var(--green-light);color:var(--green)}
-.btn-primary{background:var(--green);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:background .15s}
-.btn-primary:hover{background:var(--green-mid)}
-.btn-primary:disabled{background:#9fcfb8;cursor:not-allowed}
-.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:10px 18px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
-.btn-secondary:hover{border-color:var(--green);color:var(--green)}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.spinner{width:15px;height:15px;border:2.5px solid rgba(255,255,255,.3);border-top:2.5px solid #fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
+.viral-score{font-size:12px;font-weight:800;color:var(--orange)}
+
+/* Filtros en Barra Horizontal */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter-pill{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  border:1.5px solid var(--border);
+  background:#ffffff;
+  transition:all .2s ease;
+  user-select:none;
+}
+.filter-pill.active{border-color:var(--orange);background:var(--orange-light);color:var(--orange)}
+
+/* Botones Premium */
+.btn-primary{
+  background:linear-gradient(135deg, var(--orange) 0%, var(--orange-mid) 100%);
+  color:#ffffff;
+  border:none;
+  border-radius:8px;
+  padding:14px 26px;
+  font-family:'Montserrat',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 4px 12px rgba(212,114,26,0.2);
+  transition:all .2s ease;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.btn-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(212,114,26,0.3);
+}
+.btn-primary:disabled{background:#cbd5e0;box-shadow:none;cursor:not-allowed;transform:none}
+.btn-secondary{
+  background:#ffffff;
+  color:var(--slate);
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:13px 22px;
+  font-family:'Montserrat',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:all .2s ease;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.btn-secondary:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-light)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+.spinner{width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top:2.5px solid #ffffff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.article-preview{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:16px}
-.ap-header{background:var(--gray);padding:16px 20px;border-bottom:1px solid var(--border)}
-.ap-label{font-size:10px;font-weight:700;color:var(--gray3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
-.ap-title{font-size:17px;font-weight:800;line-height:1.3}
-.ap-meta{font-size:11px;color:var(--gray3);margin-top:6px;display:flex;gap:12px}
-.ap-excerpt{font-size:13px;color:var(--text2);font-style:italic;padding:14px 20px;border-bottom:1px solid var(--border);line-height:1.6}
-.ap-body{padding:16px 20px;font-size:13px;line-height:1.8;color:var(--text2);white-space:pre-wrap;max-height:360px;overflow-y:auto}
-.ap-tags{padding:12px 20px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border)}
-.ap-tag{font-size:11px;color:var(--blue);font-weight:600;background:#e8f0f8;padding:3px 8px;border-radius:4px}
-.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.img-opt{border:2.5px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;aspect-ratio:16/9;background:var(--gray);transition:border-color .15s}
-.img-opt:hover{border-color:#9fcfb8}.img-opt.sel{border-color:var(--green)}
+
+/* Vista previa idéntica a tu plantilla real de blog */
+.article-preview {
+  background: #ffffff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-top: 24px;
+  border: 1px solid var(--border);
+}
+.ap-hero {
+  position: relative;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  background-image: url('images/hero-drone.jpg');
+}
+.ap-hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%);
+  z-index: 1;
+}
+.ap-hero-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  width: 100%;
+}
+.ap-hero-cat {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 0.8px;
+  background: var(--orange);
+}
+.ap-hero-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.ap-body-wrap {
+  padding: 32px;
+}
+.ap-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 18px;
+  margin-bottom: 24px;
+}
+.ap-author-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ap-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--orange);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.ap-author-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--slate);
+}
+.ap-author-role {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+.ap-date-read {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.ap-excerpt {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate);
+  font-style: italic;
+  line-height: 1.6;
+  border-left: 4px solid var(--orange);
+  padding-left: 16px;
+  margin-bottom: 24px;
+}
+.ap-text-content {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--slate);
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.ap-text-content p {
+  margin-bottom: 18px;
+}
+.ap-text-content h2 {
+  font-size: 18px;
+  color: var(--slate);
+  margin: 28px 0 14px 0;
+  font-weight: 800;
+  border-left: 4px solid var(--orange);
+  padding-left: 10px;
+}
+.ap-tags {
+  padding: 16px 32px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  background: #fdfdfd;
+}
+.ap-tag {
+  font-size: 11px;
+  color: var(--orange-mid);
+  font-weight: 700;
+  background: var(--orange-light);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+/* Selector de imágenes */
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.img-opt{
+  border:3px solid transparent;
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  aspect-ratio:16/9;
+  background:#edf2f7;
+  transition:all .2s ease;
+}
+.img-opt:hover{border-color:rgba(212,114,26,0.3)}
+.img-opt.sel{border-color:var(--orange);box-shadow:0 4px 12px rgba(212,114,26,0.2)}
 .img-opt img{width:100%;height:100%;object-fit:cover;display:block}
-.pub-steps{display:flex;flex-direction:column;gap:8px;margin:16px 0}
-.pub-step{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;background:var(--gray);font-size:13px;font-weight:600;transition:all .3s}
-.pub-step.run{background:#e8f0f8;color:var(--blue)}.pub-step.ok{background:var(--green-light);color:var(--green-mid)}.pub-step.err{background:#fdecea;color:#7a1a1a}
-.step-dot{width:9px;height:9px;border-radius:50%;background:var(--gray3);flex-shrink:0}
-.pub-step.run .step-dot{background:var(--blue)}.pub-step.ok .step-dot{background:var(--green)}.pub-step.err .step-dot{background:#c0392b}
-.success-box{background:var(--green-light);border:2px solid var(--green);border-radius:var(--radius);padding:24px;text-align:center;margin-top:16px}
-.success-box h3{color:var(--green-mid);font-size:18px;margin-bottom:6px}
-.success-box p{font-size:13px;color:var(--green-mid);margin-bottom:14px}
-.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--gray);border-radius:8px;padding:14px;margin-bottom:14px}
-.sum-item label{font-size:10px;font-weight:700;color:var(--gray3);text-transform:uppercase;display:block;margin-bottom:2px}
-.sum-item span{font-size:13px;font-weight:600}
-.ep-row{display:grid;grid-template-columns:1fr 160px auto;gap:8px;align-items:end}
-.ep-status{font-size:12px;margin-top:5px;font-weight:600}
-.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:9999;animation:fadeUp .3s ease}
+
+/* Flujo de publicación */
+.pub-steps{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.pub-step{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:8px;background:#edf2f7;font-size:13px;font-weight:700;transition:all .3s}
+.pub-step.run{background:#e8f0f8;color:var(--blue)}
+.pub-step.ok{background:var(--orange-light);color:var(--orange-mid)}
+.pub-step.err{background:#fdecea;color:#7a1a1a}
+.step-dot{width:10px;height:10px;border-radius:50%;background:var(--text-muted);flex-shrink:0}
+.pub-step.run .step-dot{background:var(--blue)}
+.pub-step.ok .step-dot{background:var(--orange)}
+.pub-step.err .step-dot{background:#c0392b}
+
+.success-box{
+  background:var(--orange-light);
+  border:2.5px solid var(--orange);
+  border-radius:var(--radius);
+  padding:32px;
+  text-align:center;
+  margin-top:20px;
+}
+.success-box h3{color:var(--orange-mid);font-size:20px;margin-bottom:8px;font-weight:800;text-transform:uppercase}
+.success-box p{font-size:14px;color:var(--orange-mid);margin-bottom:18px;font-weight:600}
+
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:#f7f9f6;border-radius:8px;padding:18px;margin-bottom:20px;border:1px solid var(--border)}
+.sum-item label{font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;display:block;margin-bottom:3px;letter-spacing:0.5px}
+.sum-item span{font-size:13px;font-weight:700;color:var(--slate)}
+
+.ep-row{display:grid;grid-template-columns:1fr 160px auto;gap:10px;align-items:end}
+.ep-status{font-size:12px;margin-top:6px;font-weight:700}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--orange);color:#ffffff;padding:12px 22px;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 6px 24px rgba(212,114,26,0.15);z-index:9999;animation:fadeUp .3s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.proxy-info{background:#e8f0f8;border:1.5px solid #b5d4f4;border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:12px;color:#1a4d7a;line-height:1.6}
-.proxy-info strong{display:block;margin-bottom:4px;font-size:13px}
+.proxy-info{
+  background:var(--orange-light);
+  border:1.5px solid rgba(212,114,26,0.15);
+  border-radius:var(--radius);
+  padding:16px 20px;
+  margin-bottom:20px;
+  font-size:12px;
+  color:var(--orange-mid);
+  line-height:1.6;
+  font-weight:500;
+}
+.proxy-info strong{display:block;margin-bottom:4px;font-size:13px;font-weight:800}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr}.img-grid{grid-template-columns:repeat(2,1fr)}.ep-row{grid-template-columns:1fr}}
+
+/* LinkedIn Rich Text Modal */
+.ln-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.ln-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ln-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.ln-backdrop.active .ln-modal {
+  transform: translateY(0);
+}
+.ln-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #eef3f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ln-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+.ln-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666666;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.ln-close:hover {
+  background: #f3f3f3;
+}
+.ln-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ln-user-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ln-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ln-user-info h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+}
+.ln-privacy-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #666666;
+  border-radius: 16px;
+  padding: 2px 12px;
+  font-size: 12px;
+  color: #666666;
+  margin-top: 4px;
+  font-weight: 600;
+}
+.ln-editor-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ln-toolbar {
+  background: #f8f9fa;
+  border-bottom: 1px solid #eef3f8;
+  padding: 8px 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ln-tb-btn {
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #495057;
+}
+.ln-tb-btn:hover {
+  background: #eef3f8;
+  border-color: #adb5bd;
+}
+.ln-tb-sep {
+  height: 16px;
+  width: 1px;
+  background: #dee2e6;
+  margin: 0 4px;
+}
+.ln-textarea {
+  border: none;
+  resize: vertical;
+  min-height: 140px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 12px;
+  color: #000000;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ln-textarea::placeholder {
+  color: #666666;
+}
+.ln-emojis {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.ln-emoji-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.ln-emoji-btn:hover {
+  background: #eef3f8;
+}
+.ln-card-preview {
+  border: 1px solid #eef3f8;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+}
+.ln-card-img {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.ln-card-info {
+  padding: 12px 16px;
+  border-top: 1px solid #eef3f8;
+}
+.ln-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: inherit;
+  line-height: 1.4;
+}
+.ln-card-domain {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: inherit;
+}
+.ln-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #eef3f8;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #ffffff;
+}
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="header-logo">☀️</div>
-  <div><h1>Energe Content Engine</h1><p>Noticias virales → Nota Energe → Publicación automática</p></div>
-  <div class="header-badge">energe.com.ar</div>
+  <div class="header-logo-container">
+    <img src="https://energe.com.ar/images/logos/logo-energe.png" alt="Energe" />
+  </div>
+  <div class="header-title-box">
+    <h1>Content Engine</h1>
+    <p>Noticias virales &rarr; Nota Energe &rarr; Publicación automática</p>
+  </div>
+  <div class="header-badge">Panel de Redacción</div>
 </div>
 <div class="stepbar">
   <div class="step-item active" id="s1"><div class="step-num">1</div>Noticias virales</div>
@@ -146,12 +745,11 @@ body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);mi
     <div class="form-grid">
       <div class="fg"><label>Categoría del blog</label>
         <select id="artCat">
-          <option value="educacion">Educación Solar</option>
-          <option value="ahorro">Finanzas & ROI</option>
+          <option value="legal">Marco Legal</option>
+          <option value="roi">Finanzas & ROI</option>
           <option value="casos">Casos de Éxito</option>
-          <option value="novedades">Novedades del sector</option>
-          <option value="tecnologia">Tecnología</option>
-          <option value="normativa">Normativa y subsidios</option>
+          <option value="prensa">Prensa</option>
+          <option value="industria">Industria & Off-Grid</option>
         </select></div>
       <div class="fg"><label>Tono de voz</label>
         <select id="artTone">
@@ -189,13 +787,31 @@ body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);mi
       </div>
     </div>
     <div class="article-preview">
-      <div class="ap-header">
-        <div class="ap-label">Título SEO</div>
-        <div class="ap-title" id="apTitle"></div>
-        <div class="ap-meta"><span id="apMeta1"></span><span id="apMeta2"></span></div>
+      <div class="ap-hero" id="apHero">
+        <div class="ap-hero-overlay"></div>
+        <div class="ap-hero-content">
+          <div class="ap-hero-cat" id="apHeroCat">Marco Legal</div>
+          <h2 class="ap-hero-title" id="apTitle"></h2>
+        </div>
       </div>
-      <div class="ap-excerpt" id="apExcerpt"></div>
-      <div class="ap-body" id="apBody"></div>
+      <div class="ap-body-wrap">
+        <div class="ap-meta-bar">
+          <div class="ap-author-box">
+            <div class="ap-avatar">E</div>
+            <div>
+              <div class="ap-author-name" id="apAuthorName">Equipo Energe</div>
+              <div class="ap-author-role">Redacción Energe</div>
+            </div>
+          </div>
+          <div class="ap-date-read">
+            <span id="apDate"></span>
+            <span>&bull;</span>
+            <span id="apReadTime"></span>
+          </div>
+        </div>
+        <div class="ap-excerpt" id="apExcerpt"></div>
+        <div class="ap-text-content" id="apBody"></div>
+      </div>
       <div class="ap-tags" id="apTags"></div>
     </div>
     <div class="btn-row">
@@ -207,26 +823,27 @@ body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);mi
 <!-- PASO 3 -->
 <div class="section" id="step3">
   <div class="card">
-    <div class="card-title">🖼️ Imagen destacada</div>
-    <div class="card-sub">Seleccioná la imagen que acompañará la nota (libres de derechos)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <div class="card-title" style="margin:0">🖼️ Imagen destacada</div>
+      <button class="btn-secondary" style="padding:6px 12px;font-size:12px" onclick="loadImages()">🔄 Variar imágenes</button>
+    </div>
+    <div class="card-sub" style="margin-bottom:14px">Seleccioná la imagen que acompañará la nota (libres de derechos y de alta resolución)</div>
     <div class="img-grid" id="imgGrid"><div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--gray3)">Cargando imágenes…</div></div>
   </div>
   <div class="card">
     <div class="card-title">⚙️ Formato Energe</div>
     <div class="form-grid">
       <div class="fg"><label>Slug URL</label><input id="artSlug" type="text" placeholder="paneles-solares-mendoza-2025"/></div>
-      <div class="fg"><label>Estado</label>
-        <select id="artStatus"><option value="draft">Borrador</option><option value="published">Publicar directo</option></select></div>
-      <div class="fg"><label>Autor</label><input id="artAuthor" type="text" value="Equipo Energe"/></div>
-      <div class="fg"><label>Meta descripción SEO</label><input id="artMetaDesc" type="text" placeholder="Se completa automáticamente"/></div>
+      <div class="fg"><label>Autor del artículo</label><input id="artAuthor" type="text" value="Equipo Energe"/></div>
+      <div class="fg" style="grid-column: 1 / -1"><label>Meta descripción SEO</label><input id="artMetaDesc" type="text" placeholder="Se completa automáticamente"/></div>
     </div>
   </div>
   <div class="card">
     <div class="card-title">🔗 Endpoint de publicación</div>
-    <div class="card-sub">El mismo servidor donde subiste proxy.php</div>
+    <div class="card-sub">La URL pública de tu web donde subiste el archivo publish.php (ej. en la carpeta principal)</div>
     <div class="ep-row">
-      <div class="fg" style="margin:0"><label>URL base del sitio</label><input id="epUrl" type="text" placeholder="https://energe.com.ar"/></div>
-      <div class="fg" style="margin:0"><label>Token secreto</label><input id="epToken" type="password" placeholder="Tu token"/></div>
+      <div class="fg" style="margin:0"><label>URL de publish.php en tu web</label><input id="epUrl" type="text" value="https://energe.com.ar/publish.php"/></div>
+      <div class="fg" style="margin:0"><label>Token secreto</label><input id="epToken" type="password" value="33711409179"/></div>
       <button class="btn-secondary" onclick="testPublishEndpoint()" style="margin-top:20px;white-space:nowrap">🔌 Probar</button>
     </div>
     <div id="epStatusMsg" style="font-size:12px;margin-top:5px;display:none;font-weight:600"></div>
@@ -245,8 +862,7 @@ body{font-family:'Montserrat',sans-serif;background:#f0f0ec;color:var(--text);mi
     <div class="sum-grid" id="sumGrid"></div>
     <div class="pub-steps" id="pubSteps"></div>
     <div class="btn-row" id="pubBtnRow">
-      <button class="btn-primary" onclick="publish(false)">🚀 Publicar ahora</button>
-      <button class="btn-secondary" onclick="publish(true)">📄 Guardar como borrador</button>
+      <button class="btn-primary" onclick="publish()">🚀 Publicar nota en la web</button>
       <button class="btn-secondary" onclick="goStep(3)">← Volver</button>
     </div>
     <div class="success-box" id="successBox" style="display:none">
@@ -304,18 +920,130 @@ async function testProxy(){
   st.style.display='block';
 }
 
-async function callProxy(prompt){
-  const r=await fetch('/api/proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
-  if(!r.ok) throw new Error('Error HTTP '+r.status);
-  const d=await r.json();
-  if(!d.ok) throw new Error(d.error||'Error del proxy');
-  return d.text;
+async function callGeminiDirectly(prompt) {
+  const GEMINI_KEY = 'AIzaSyB-1oGZOAq2UMlYcniKFyioXVmnQniRxCc';
+  const model = 'gemini-3.5-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
+  
+  const body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { 
+      temperature: 0.8, 
+      maxOutputTokens: 8192,
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: 'OBJECT',
+        properties: {
+          title: { type: 'STRING' },
+          excerpt: { type: 'STRING' },
+          body: { type: 'STRING' },
+          tags: { 
+            type: 'ARRAY', 
+            items: { type: 'STRING' } 
+          },
+          slug: { type: 'STRING' },
+          metaDesc: { type: 'STRING' },
+          readTime: { type: 'STRING' }
+        },
+        required: ['title', 'excerpt', 'body', 'tags', 'slug', 'metaDesc', 'readTime']
+      }
+    }
+  });
+
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: body
+  });
+
+  if (!r.ok) {
+    const errorData = await r.json().catch(() => ({}));
+    throw new Error(errorData.error?.message || 'Error HTTP ' + r.status);
+  }
+
+  const d = await r.json();
+  const text = d.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error('Respuesta vacía de Gemini');
+  return text;
 }
 
-function fetchNews(){
-  const filtered=NEWS.filter(n=>n.filters.some(f=>activeFilters.has(f)));
-  renderNews(filtered);
-  document.getElementById('newsArea').style.display='block';
+async function callProxy(prompt){
+  try {
+    const r=await fetch('/api/proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
+    
+    // Si da error de servidor no soportado o ausente (405 o 404 en Live Server), usamos fallback directo
+    if(r.status === 405 || r.status === 404) {
+      console.warn('Servidor local no detectado (Live Server). Redirigiendo llamada directa a Gemini...');
+      return await callGeminiDirectly(prompt);
+    }
+    
+    if(!r.ok) throw new Error('Error HTTP '+r.status);
+    const d=await r.json();
+    if(!d.ok) throw new Error(d.error||'Error del proxy');
+    return d.text;
+  } catch(e) {
+    // Si falla por CORS o fallo de red local, también intentamos fallback directo
+    if (e.message.includes('Failed to fetch') || e.message.includes('fetch')) {
+      console.warn('Fallo de red en proxy, reintentando llamada directa a Gemini...', e.message);
+      return await callGeminiDirectly(prompt);
+    }
+    throw e;
+  }
+}
+
+async function fetchNews() {
+  const btn = document.getElementById('fetchBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Buscando tendencias en tiempo real...';
+  
+  const region = document.getElementById('region').value;
+  const period = document.getElementById('period').value;
+  const filters = Array.from(activeFilters).join(', ');
+  
+  const prompt = `Sos un analista de tendencias del sector de energías renovables.
+Generá una lista de 6 a 8 noticias virales o de tendencia actuales (año 2025/2026) sobre energía solar y transición energética, filtradas por las categorías: [${filters}], en la región: ${region}, para el período: ${period}.
+Las noticias deben sonar 100% reales, de alto impacto e interés para hogares y PyMEs en Argentina.
+Devolvé SOLO un objeto JSON válido (sin markdown ni bloques de código \`\`\`) con la estructura:
+{
+  "news": [
+    {
+      "id": 1,
+      "title": "Título llamativo de la noticia (máx 90 chars)",
+      "summary": "Resumen viral de 2 frases sobre la noticia, su impacto y relevancia.",
+      "cat": "ba", // usar 'ba' para ahorro, 'bb' para fomento/subsidios, 'bt' para tecnología, 'br' para tarifas/marco legal
+      "catLabel": "Ahorro", // etiqueta amigable: Ahorro, Subsidios, Tecnología, Tarifas, Marco Legal, Solar
+      "score": 95, // puntuación viral de 70 a 99
+      "src": "Fuente realista de prensa (ej: Clarín, Infobae, El Cronista, Apertura, EDEMSA)",
+      "filters": ["ahorro", "solar"] // tags de filtros aplicables en minúsculas (solar, subsidios, ahorro, tecnologia, tarifas)
+    }
+  ]
+}`;
+
+  try {
+    const raw = await callProxy(prompt);
+    let clean = raw.trim();
+    const m = clean.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if(m) clean = m[1].trim();
+    const s = clean.indexOf('{'), e = clean.lastIndexOf('}');
+    if(s !== -1 && e !== -1) clean = clean.slice(s, e+1);
+    
+    const data = JSON.parse(clean);
+    if (data.news && data.news.length > 0) {
+      renderNews(data.news);
+      document.getElementById('newsArea').style.display = 'block';
+    } else {
+      throw new Error('Formato de respuesta incorrecto');
+    }
+  } catch (e) {
+    console.warn('Error al buscar noticias dinámicas con Gemini, usando fallback local...', e);
+    // Fallback a las noticias estáticas
+    const filtered = NEWS.filter(n => n.filters.some(f => activeFilters.has(f)));
+    renderNews(filtered);
+    document.getElementById('newsArea').style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Buscar noticias virales';
+  }
 }
 
 function renderNews(items){
@@ -343,6 +1071,82 @@ function renderNews(items){
   });
 }
 
+function isInsideQuotes(str, index) {
+  let inside = false;
+  for (let i = 0; i < index; i++) {
+    if (str[i] === '"' && (i === 0 || str[i-1] !== '\\')) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function extractFieldsByRegex(rawStr) {
+  const titleMatch = rawStr.match(/"title"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  const excerptMatch = rawStr.match(/"excerpt"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  const bodyMatch = rawStr.match(/"body"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  const slugMatch = rawStr.match(/"slug"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  const metaDescMatch = rawStr.match(/"metaDesc"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  const readTimeMatch = rawStr.match(/"readTime"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"/);
+  
+  if (titleMatch || bodyMatch) {
+    return {
+      title: titleMatch ? titleMatch[1] : "Nota de Energía Solar",
+      excerpt: excerptMatch ? excerptMatch[1] : "Actualidad sobre paneles solares en Argentina.",
+      body: bodyMatch ? bodyMatch[1] : "Contenido de la nota.",
+      tags: ["energiasolar", "argentina", "mendoza"],
+      slug: slugMatch ? slugMatch[1] : "nueva-nota-solar",
+      metaDesc: metaDescMatch ? metaDescMatch[1] : "Nota sobre energía solar.",
+      readTime: readTimeMatch ? readTimeMatch[1] : "5 min"
+    };
+  }
+  throw new Error("No se pudo recuperar el contenido de la respuesta truncada.");
+}
+
+function tryRepairJSON(jsonString) {
+  jsonString = jsonString.trim();
+  try {
+    return JSON.parse(jsonString);
+  } catch (e) {
+    console.warn("JSON corrupto detectado, intentando autoreparación...", e.message);
+  }
+
+  const start = jsonString.indexOf('{');
+  if (start !== -1) {
+    jsonString = jsonString.substring(start);
+  }
+
+  let cleaned = jsonString;
+  let openQuote = false;
+  for (let i = 0; i < cleaned.length; i++) {
+    if (cleaned[i] === '"' && (i === 0 || cleaned[i-1] !== '\\')) {
+      openQuote = !openQuote;
+    }
+  }
+  
+  if (openQuote) {
+    cleaned += '"';
+  }
+  
+  let openBrackets = 0;
+  let openBraces = 0;
+  for (let i = 0; i < cleaned.length; i++) {
+    if (cleaned[i] === '[' && !isInsideQuotes(cleaned, i)) openBrackets++;
+    if (cleaned[i] === ']' && !isInsideQuotes(cleaned, i)) openBrackets--;
+    if (cleaned[i] === '{' && !isInsideQuotes(cleaned, i)) openBraces++;
+    if (cleaned[i] === '}' && !isInsideQuotes(cleaned, i)) openBraces--;
+  }
+  
+  while (openBrackets > 0) { cleaned += ']'; openBrackets--; }
+  while (openBraces > 0) { cleaned += '}'; openBraces--; }
+  
+  try {
+    return JSON.parse(cleaned);
+  } catch (e) {
+    return extractFieldsByRegex(jsonString);
+  }
+}
+
 async function generateArticle(){
   if(!selNews)return;
   const cat=document.getElementById('artCat').value;
@@ -350,7 +1154,7 @@ async function generateArticle(){
   const len=document.getElementById('artLen').value;
   const kw=document.getElementById('artKw').value||'energía solar Argentina';
   const cta=document.getElementById('artCta').value;
-  const lenMap={corta:'300-500',media:'600-900',larga:'1000-1400'};
+  const lenMap={corta:'300-400',media:'500-600',larga:'700-800'};
   const toneMap={experto:'profesional, técnico y confiable, con datos concretos',cercano:'cercano, amigable y conversacional',urgente:'con sentido de urgencia y oportunidad'};
   const ctaMap={cotizacion:'Pedí tu cotización gratis en energe.com.ar',contacto:'Contactá a un asesor Energe sin compromiso',calculadora:'Calculá tu ahorro real en energe.com.ar',whatsapp:'Escribinos por WhatsApp y respondemos en minutos'};
   const btn=document.getElementById('genBtn');
@@ -367,8 +1171,9 @@ Generá un artículo de blog:
 - Público: hogares y PyMEs argentinas
 - Datos reales del mercado argentino 2025
 - Mencioná Mendoza cuando sea relevante
+IMPORTANTE: NUNCA uses comillas dobles (") dentro de los textos generados. Si necesitas destacar, citar o usar nombres, usa siempre comillas simples ('). Esto evitará que se rompa el formato JSON.
 Respondé SOLO con JSON válido sin markdown:
-{"title":"título SEO máx 65 chars","excerpt":"bajada máx 155 chars","body":"cuerpo con párrafos separados por \\n\\n y subtítulos con ## al inicio","tags":["tag1","tag2","tag3","tag4","tag5"],"slug":"slug-seo","metaDesc":"meta descripción máx 155 chars","readTime":"X min"}`;
+{"title":"título SEO máx 65 chars","excerpt":"bajada máx 155 chars","body":"cuerpo con párrafos separados por \\n\\n y subtítulos con ## al inicio. Usa comillas simples si necesitas citar algo.","tags":["tag1","tag2","tag3","tag4","tag5"],"slug":"slug-seo","metaDesc":"meta descripción máx 155 chars","readTime":"X min"}`;
   try{
     const raw=await callProxy(prompt);
     let clean=raw.trim();
@@ -376,18 +1181,59 @@ Respondé SOLO con JSON válido sin markdown:
     if(m)clean=m[1].trim();
     const s=clean.indexOf('{'),e=clean.lastIndexOf('}');
     if(s!==-1&&e!==-1)clean=clean.slice(s,e+1);
-    article=JSON.parse(clean);
-    document.getElementById('apTitle').textContent=article.title;
-    document.getElementById('apMeta1').textContent='⏱ '+article.readTime+' de lectura';
-    document.getElementById('apMeta2').textContent='📂 '+cat;
-    document.getElementById('apExcerpt').textContent=article.excerpt;
-    document.getElementById('apBody').textContent=article.body;
-    document.getElementById('apTags').innerHTML=article.tags.map(t=>`<span class="ap-tag">#${t.replace('#','')}</span>`).join('');
-    if(!document.getElementById('artSlug').value)document.getElementById('artSlug').value=article.slug;
-    if(!document.getElementById('artMetaDesc').value)document.getElementById('artMetaDesc').value=article.metaDesc;
+    article=tryRepairJSON(clean);
+    
+    // Sanitizar cadenas contra literal \n generados accidentalmente por la IA
+    if (typeof article.title === 'string') article.title = article.title.replace(/\\n/g, '\n');
+    if (typeof article.excerpt === 'string') article.excerpt = article.excerpt.replace(/\\n/g, '\n');
+    if (typeof article.body === 'string') article.body = article.body.replace(/\\n/g, '\n');
+    if (typeof article.metaDesc === 'string') article.metaDesc = article.metaDesc.replace(/\\n/g, '\n');
+
+    const catLabelMap = {
+      legal: 'Marco Legal',
+      roi: 'Finanzas & ROI',
+      casos: 'Casos de Éxito',
+      prensa: 'Prensa',
+      industria: 'Industria & Off-Grid'
+    };
+    
+    document.getElementById('apTitle').textContent=article.title || '';
+    document.getElementById('apHeroCat').textContent = catLabelMap[cat] || 'General';
+    
+    document.getElementById('apHeroCat').style.background = '#d4721a';
+
+    document.getElementById('apAuthorName').textContent = document.getElementById('artAuthor').value || 'Equipo Energe';
+    
+    const monthsAbbr = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const formattedDate = new Date().getDate() + ' ' + monthsAbbr[new Date().getMonth()] + ' ' + new Date().getFullYear();
+    document.getElementById('apDate').textContent = formattedDate;
+    document.getElementById('apReadTime').textContent = (article.readTime || '5 min') + ' de lectura';
+    
+    document.getElementById('apExcerpt').textContent=article.excerpt || '';
+
+    // Convertir markdown del cuerpo a HTML semántico para la vista previa
+    let bodyHtml = '';
+    const bodyLines = (article.body || '').split('\n');
+    bodyLines.forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      if (trimmed.startsWith('###')) {
+        bodyHtml += `<h3>${trimmed.substring(3).trim()}</h3>`;
+      } else if (trimmed.startsWith('##')) {
+        bodyHtml += `<h2>${trimmed.substring(2).trim()}</h2>`;
+      } else {
+        const text = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        bodyHtml += `<p>${text}</p>`;
+      }
+    });
+    document.getElementById('apBody').innerHTML = bodyHtml;
+    
+    document.getElementById('apTags').innerHTML=(article.tags || []).map(t=>`<span class="ap-tag">#${t.replace('#','')}</span>`).join('');
+    if(!document.getElementById('artSlug').value)document.getElementById('artSlug').value=article.slug || '';
+    if(!document.getElementById('artMetaDesc').value)document.getElementById('artMetaDesc').value=article.metaDesc || '';
     document.getElementById('articleOut').style.display='block';
   }catch(e){
-    alert('❌ Error: '+e.message+'\n\nAsegurate de haber subido proxy.php a tu hosting y configurado la URL correctamente en el Paso 1.');
+    alert('❌ Error al generar la nota: '+e.message+'\n\nPor favor verifica tu conexión y la configuración de las variables de entorno de Gemini.');
   }finally{
     btn.disabled=false;btn.innerHTML='✨ Generar nota completa';
   }
@@ -396,82 +1242,360 @@ Respondé SOLO con JSON válido sin markdown:
 function regenArticle(){document.getElementById('articleOut').style.display='none';generateArticle();}
 function copyArticle(){navigator.clipboard.writeText((article.title||'')+'\n\n'+(article.body||''));toast('Artículo copiado');}
 
-function loadImages(){
-  const g=document.getElementById('imgGrid');
-  g.innerHTML='';selImg=null;
-  const seeds=[42,77,13,91,55,28];
-  const labels=['Instalación residencial','PyME industrial','Paneles en techo','Campo solar','Sistema doméstico','Off-grid rural'];
-  seeds.forEach((s,i)=>{
-    const url=`https://picsum.photos/seed/solar${s}/800/450`;
-    const thumb=`https://picsum.photos/seed/solar${s}/400/225`;
-    const d=document.createElement('div');
-    d.className='img-opt';d.title=labels[i];
-    d.innerHTML=`<img src="${thumb}" alt="${labels[i]}" loading="lazy"/>`;
-    d.onclick=()=>{document.querySelectorAll('.img-opt').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');selImg={url};};
+function loadImages() {
+  const g = document.getElementById('imgGrid');
+  g.innerHTML = '';
+  selImg = null;
+  
+  // Categorized premium high-quality solar/sustainability image pool
+  const imagePool = {
+    legal: [
+      { id: '1585842378054-ee2e52f94ba2', label: 'Técnico Instalador Profesional' },
+      { id: '1504307651254-35680f356dfd', label: 'Ingeniería Fotovoltaica en Obra' },
+      { id: '1592833159155-c62df1b65634', label: 'Paneles Monocristalinos de Alta Eficiencia' },
+      { id: '1611273426858-450d8e3c9fce', label: 'Planta de Generación Distribuida' }
+    ],
+    roi: [
+      { id: '1542336391-ec2936d8f518', label: 'Detalle Técnico Celda Solar' },
+      { id: '1620038650424-8599338f0d85', label: 'Inversores de Potencia y Monitoreo' },
+      { id: '1508514177221-188b1cf16e9d', label: 'Eficiencia Solar Corporativa' },
+      { id: '1592833159155-c62df1b65634', label: 'Retorno de Inversión Tecnológico' }
+    ],
+    casos: [
+      { id: '1509391366360-2e959784a276', label: 'Techo Residencial Solar Premium' },
+      { id: '1624397635282-01967271b38e', label: 'Residencia Moderna con Paneles' },
+      { id: '1605980776566-0486c3ac7617', label: 'Casa de Campo Autosustentable' },
+      { id: '1622322482524-a21b3390c50d', label: 'Vivienda Eco-friendly Integral' }
+    ],
+    prensa: [
+      { id: '1611273426858-450d8e3c9fce', label: 'Amanecer Solar Corporativo' },
+      { id: '1473341304170-971dccb5ac1e', label: 'Campo Fotovoltaico al Sol' },
+      { id: '1558449028-b53a39d100fc', label: 'Planta de Energía del Futuro' },
+      { id: '1592833159155-c62df1b65634', label: 'Paneles de Alta Tecnología' }
+    ],
+    industria: [
+      { id: '1508514177221-188b1cf16e9d', label: 'Techo Solar de Nave Industrial' },
+      { id: '1613665813446-82a78c468a1d', label: 'Instalación Solar en Fábrica' },
+      { id: '1569003339405-ea396a5a8a90', label: 'Estructuras de Soporte Industrial' },
+      { id: '1558449028-b53a39d100fc', label: 'Parque Fotovoltaico Mayorista' }
+    ]
+  };
+
+  // Obtener la categoría seleccionada en el paso 2
+  const currentCat = document.getElementById('artCat').value || 'legal';
+  
+  // Obtener las fotos correspondientes a la categoría seleccionada
+  let selectedImages = [...(imagePool[currentCat] || imagePool.legal)];
+  
+  // Completamos la lista hasta 6 opciones con fotos de otras categorías del mismo pool verificado
+  const otherCats = Object.keys(imagePool).filter(c => c !== currentCat);
+  while (selectedImages.length < 6 && otherCats.length > 0) {
+    const randomCat = otherCats[Math.floor(Math.random() * otherCats.length)];
+    const pool = imagePool[randomCat];
+    const randomImg = pool[Math.floor(Math.random() * pool.length)];
+    if (!selectedImages.some(img => img.id === randomImg.id)) {
+      selectedImages.push(randomImg);
+    }
+  }
+  
+  // Barajar
+  selectedImages.sort(() => 0.5 - Math.random());
+
+  selectedImages.forEach((img, i) => {
+    const url = `https://images.unsplash.com/photo-${img.id}?auto=format&fit=crop&w=1200&q=80`;
+    const thumb = `https://images.unsplash.com/photo-${img.id}?auto=format&fit=crop&w=400&h=225&q=80`;
+    const d = document.createElement('div');
+    d.className = 'img-opt';
+    d.title = img.label;
+    d.innerHTML = `<img src="${thumb}" alt="${img.label}" loading="lazy"/>`;
+    d.onclick = () => {
+      document.querySelectorAll('.img-opt').forEach(x => x.classList.remove('sel'));
+      d.classList.add('sel');
+      selImg = { url };
+      const apHero = document.getElementById('apHero');
+      if (apHero) {
+        apHero.style.backgroundImage = `url('${url}')`;
+      }
+    };
     g.appendChild(d);
-    if(i===0)setTimeout(()=>d.click(),100);
+    if (i === 0) setTimeout(() => d.click(), 100);
   });
 }
 
+function getPublishUrl(input) {
+  let url = input.trim();
+  if (!url) return '';
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+  // Si termina en .php lo dejamos tal cual. 
+  // Si no termina en .php, asumimos que es el sitio base y buscamos publish.php en la raíz.
+  if (!url.endsWith('.php')) {
+    url = url.replace(/\/$/, '') + '/publish.php';
+  }
+  return url;
+}
+
+function getSiteBaseUrl(publishUrl) {
+  return publishUrl.replace(/\/publish\.php$/, '').replace(/\/api$/, '');
+}
+
 async function testPublishEndpoint(){
-  const url=(document.getElementById('epUrl').value||proxyBase).trim().replace(/\/$/,'');
-  const secret=document.getElementById('epToken').value.trim();
-  const msg=document.getElementById('epStatusMsg');
+  const rawUrl = document.getElementById('epUrl').value.trim();
+  if(!rawUrl) { alert('Ingresá la URL donde subiste el archivo publish.php'); return; }
+  const url = getPublishUrl(rawUrl);
+  const secret = document.getElementById('epToken').value.trim();
+  const msg = document.getElementById('epStatusMsg');
   try{
-    const r=await fetch(url+'/api/publish.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:true,secret})});
-    const d=await r.json();
-    msg.style.display='block';
-    if(d.ok){msg.style.color='var(--green)';msg.textContent='✓ Endpoint de publicación activo';}
-    else{msg.style.color='#c0392b';msg.textContent='✗ Error: '+(d.error||'desconocido');}
-  }catch(e){msg.style.display='block';msg.style.color='#c0392b';msg.textContent='✗ No se pudo conectar al endpoint de publicación.';}
+    const r = await fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({test:true,secret})
+    });
+    const d = await r.json();
+    msg.style.display = 'block';
+    if(d.ok){
+      msg.style.color = 'var(--green)';
+      msg.textContent = '✓ Endpoint de publicación activo en: ' + url;
+    } else {
+      msg.style.color = '#c0392b';
+      msg.textContent = '✗ Error: ' + (d.error || 'desconocido');
+    }
+  }catch(e){
+    msg.style.display = 'block';
+    msg.style.color = '#c0392b';
+    msg.textContent = '✗ No se pudo conectar al endpoint de publicación en: ' + url + ' (Detalle: ' + e.message + ')';
+  }
 }
 
 function prepareStep4(){
   const slug=document.getElementById('artSlug').value||article.slug||'nueva-nota';
-  const base=(document.getElementById('epUrl').value||proxyBase).replace(/\/$/,'');
+  const rawUrl = document.getElementById('epUrl').value.trim();
+  const base = getSiteBaseUrl(getPublishUrl(rawUrl));
   document.getElementById('sumGrid').innerHTML=`
     <div class="sum-item"><label>Título</label><span>${article.title||'—'}</span></div>
     <div class="sum-item"><label>Categoría</label><span>${document.getElementById('artCat').value}</span></div>
     <div class="sum-item"><label>URL</label><span style="color:var(--blue)">/blog-${slug}.html</span></div>
-    <div class="sum-item"><label>Estado</label><span>${document.getElementById('artStatus').value==='draft'?'📄 Borrador':'🟢 Publicar directo'}</span></div>`;
+    <div class="sum-item"><label>Autor</label><span>${document.getElementById('artAuthor').value}</span></div>`;
   document.getElementById('pubSteps').innerHTML='';
   document.getElementById('successBox').style.display='none';
   document.getElementById('pubBtnRow').style.display='flex';
 }
 
-async function publish(asDraft){
-  const base=(document.getElementById('epUrl').value||proxyBase).trim().replace(/\/$/,'');
-  const secret=document.getElementById('epToken').value.trim();
-  if(!base){alert('Configurá la URL del sitio en el paso anterior');return;}
+async function publish(){
+  const rawUrl = document.getElementById('epUrl').value.trim();
+  if(!rawUrl){alert('Configurá la URL de publish.php en el paso anterior');return;}
+  
+  const url = getPublishUrl(rawUrl);
+  const secret = document.getElementById('epToken').value.trim();
+  
   document.getElementById('pubBtnRow').style.display='none';
   const steps=['Validando contenido…','Generando HTML con formato Energe…','Guardando en el servidor…','Verificando publicación…'];
   const ps=document.getElementById('pubSteps');
   ps.innerHTML=steps.map((_,i)=>`<div class="pub-step" id="ps${i}"><div class="step-dot" id="pd${i}"></div><span id="pt${i}">${steps[i]}</span></div>`).join('');
+  
+  let publishSuccess = true;
+  let publishError = '';
+  
   for(let i=0;i<steps.length;i++){
     document.getElementById('ps'+i).className='pub-step run';
-    await new Promise(r=>setTimeout(r,700+Math.random()*400));
+    await new Promise(r=>setTimeout(r,600+Math.random()*300));
+    
     if(i===2){
       try{
-        await fetch(base+'/api/publish.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-          secret,title:article.title,excerpt:article.excerpt,body:article.body,
-          tags:article.tags,slug:document.getElementById('artSlug').value||article.slug,
-          category:document.getElementById('artCat').value,author:document.getElementById('artAuthor').value,
-          metaDesc:article.metaDesc,status:asDraft?'draft':'published',
-          image:selImg?.url||null,cta:document.getElementById('artCta').value,readTime:article.readTime
-        })});
-      }catch(e){}
+        const r = await fetch(url,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            secret,title:article.title,excerpt:article.excerpt,body:article.body,
+            tags:article.tags,slug:document.getElementById('artSlug').value||article.slug,
+            category:document.getElementById('artCat').value,author:document.getElementById('artAuthor').value,
+            metaDesc:article.metaDesc,status:'published',
+            image:selImg?.url||null,cta:document.getElementById('artCta').value,readTime:article.readTime
+          })
+        });
+        
+        if (!r.ok) throw new Error('Error HTTP ' + r.status);
+        const d = await r.json().catch(() => ({ok: true}));
+        if (d && d.ok === false) throw new Error(d.error || 'Error al guardar');
+        
+      } catch(e) {
+        publishSuccess = false;
+        publishError = e.message;
+        document.getElementById('ps'+i).className='pub-step err';
+        document.getElementById('pt'+i).textContent='⚠️ ' + steps[i].replace('…','') + ' (Fallo: ' + e.message + ')';
+        continue;
+      }
     }
+    
+    if (i === 3 && !publishSuccess) {
+      document.getElementById('ps'+i).className='pub-step err';
+      document.getElementById('pt'+i).textContent='⚠️ Verificación omitida por fallo previo';
+      continue;
+    }
+    
     document.getElementById('ps'+i).className='pub-step ok';
     document.getElementById('pt'+i).textContent='✓ '+steps[i].replace('…','');
   }
+  
   const slug=document.getElementById('artSlug').value||article.slug||'nueva-nota';
-  document.getElementById('successUrl').innerHTML=`Disponible en: <a href="${base}/blog-${slug}.html" target="_blank" style="color:var(--green)">${base}/blog-${slug}.html</a>`;
+  const siteBase = getSiteBaseUrl(url);
+  const targetUrl = `${siteBase}/blog-${slug}.html`;
+  
+  if (publishSuccess) {
+    document.getElementById('successUrl').innerHTML=`
+      <div style="color:var(--green);font-weight:700;margin-bottom:8px">🟢 ¡Publicado con éxito de forma automática!</div>
+      Enlace disponible en: <a href="${targetUrl}" target="_blank" style="color:var(--green);font-weight:700">${targetUrl}</a>
+    `;
+  } else {
+    document.getElementById('successUrl').innerHTML=`
+      <div style="color:#c0392b;font-weight:700;margin-bottom:8px">⚠️ Nota generada, pero no se pudo subir automáticamente</div>
+      <div style="font-size:12px;color:var(--gray3);margin-bottom:12px">Detalle del error: ${publishError}</div>
+      El enlace esperado es: <a href="${targetUrl}" target="_blank" style="color:var(--blue);font-weight:700">${targetUrl}</a>
+      <div style="margin-top:12px;font-size:13px;color:var(--dark)">Puedes copiar los campos del Paso 2 manualmente o revisar tu configuración en el Paso 3.</div>
+    `;
+  }
+  
   document.getElementById('successBox').style.display='block';
+  document.getElementById('pubBtnRow').style.display='flex';
 }
 
-function copyLinkedIn(){
-  const text=(article.title||'')+'\n\n'+(article.excerpt||'')+'\n\nLeé más → '+(proxyBase||'https://energe.com.ar')+'/blog-'+(article.slug||'nota')+'.html\n\n'+(article.tags||[]).map(t=>'#'+t.replace('#','')).join(' ');
-  navigator.clipboard.writeText(text);toast('Post de LinkedIn copiado');
+// Funciones de formato de texto de LinkedIn (Unicode)
+function toBold(str) {
+  return [...str].map(char => {
+    const code = char.codePointAt(0);
+    if (code >= 65 && code <= 90) {
+      return String.fromCodePoint(code + 120211);
+    } else if (code >= 97 && code <= 122) {
+      return String.fromCodePoint(code + 120205);
+    } else if (code >= 48 && code <= 57) {
+      return String.fromCodePoint(code + 120764);
+    }
+    return char;
+  }).join('');
+}
+
+function toItalic(str) {
+  return [...str].map(char => {
+    const code = char.codePointAt(0);
+    if (code >= 65 && code <= 90) {
+      return String.fromCodePoint(code + 120289);
+    } else if (code >= 97 && code <= 122) {
+      return String.fromCodePoint(code + 120283);
+    }
+    return char;
+  }).join('');
+}
+
+function toPlain(str) {
+  const chars = [...str];
+  return chars.map(char => {
+    const code = char.codePointAt(0);
+    if (code >= 120276 && code <= 120301) {
+      return String.fromCodePoint(code - 120211);
+    } else if (code >= 120302 && code <= 120327) {
+      return String.fromCodePoint(code - 120205);
+    } else if (code >= 120812 && code <= 120821) {
+      return String.fromCodePoint(code - 120764);
+    } else if (code >= 120354 && code <= 120379) {
+      return String.fromCodePoint(code - 120289);
+    } else if (code >= 120380 && code <= 120405) {
+      return String.fromCodePoint(code - 120283);
+    }
+    return char;
+  }).join('');
+}
+
+function applyFormatting(style) {
+  const ta = document.getElementById('linkedinText');
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  if (start === end) {
+    alert('Por favor, selecciona primero el texto que deseas formatear.');
+    return;
+  }
+  const selectedText = ta.value.substring(start, end);
+  let formattedText = selectedText;
+  if (style === 'bold') {
+    formattedText = toBold(toPlain(selectedText));
+  } else if (style === 'italic') {
+    formattedText = toItalic(toPlain(selectedText));
+  } else if (style === 'plain') {
+    formattedText = toPlain(selectedText);
+  }
+  
+  const originalScrollTop = ta.scrollTop;
+  ta.value = ta.value.substring(0, start) + formattedText + ta.value.substring(end);
+  
+  // Restaurar selección y foco
+  ta.focus();
+  ta.selectionStart = start;
+  ta.selectionEnd = start + formattedText.length;
+  ta.scrollTop = originalScrollTop;
+}
+
+function insertEmoji(emoji) {
+  const ta = document.getElementById('linkedinText');
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const originalScrollTop = ta.scrollTop;
+  ta.value = ta.value.substring(0, start) + emoji + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + emoji.length;
+  ta.scrollTop = originalScrollTop;
+}
+
+function openLinkedInModal() {
+  const ta = document.getElementById('linkedinText');
+  const epUrl = document.getElementById('epUrl').value.trim();
+  const siteBase = getSiteBaseUrl(getPublishUrl(epUrl)) || 'https://energe.com.ar';
+  const slug = document.getElementById('artSlug').value || article.slug || 'nota';
+  const blogUrl = `${siteBase}/blog-${slug}.html`;
+  
+  // Construir texto base
+  const tagsStr = (article.tags || []).map(t => '#' + t.replace('#','')).join(' ');
+  const defaultText = `${article.title || ''}\n\n${article.excerpt || ''}\n\nLeé más → ${blogUrl}\n\n${tagsStr}`;
+  
+  ta.value = defaultText;
+  
+  // Actualizar tarjeta de previsualización
+  const cardImg = document.getElementById('lnCardImg');
+  const cardTitle = document.getElementById('lnCardTitle');
+  
+  if (selImg && selImg.url) {
+    cardImg.style.backgroundImage = `url('${selImg.url}')`;
+  } else {
+    cardImg.style.backgroundImage = `url('images/hero-drone.jpg')`;
+  }
+  
+  cardTitle.textContent = `${article.title || 'Paneles solares en Argentina'} | Energe`;
+  
+  // Mostrar modal
+  const modal = document.getElementById('linkedinModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLinkedInModal() {
+  const modal = document.getElementById('linkedinModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function copyLinkedInText() {
+  const ta = document.getElementById('linkedinText');
+  navigator.clipboard.writeText(ta.value)
+    .then(() => {
+      toast('Post de LinkedIn copiado con éxito 💼');
+      closeLinkedInModal();
+    })
+    .catch(err => {
+      alert('Error al copiar al portapapeles: ' + err);
+    });
+}
+
+function copyLinkedIn() {
+  openLinkedInModal();
 }
 
 function newNote(){
@@ -504,14 +1628,100 @@ function toast(msg){
   document.body.appendChild(t);setTimeout(()=>t.remove(),3000);
 }
 
-// Sincronizar proxyBase con epUrl
+// Cargar valores guardados en localStorage al inicio y gestionar persistencia
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('proxyBase').addEventListener('change',e=>{
-    proxyBase=e.target.value.trim().replace(/\/$/,'');
-    const ep=document.getElementById('epUrl');
-    if(!ep.value)ep.value=e.target.value;
-  });
+  const savedUrl = localStorage.getItem('energe_epUrl') || 'https://energe.com.ar/publish.php';
+  const savedToken = localStorage.getItem('energe_epToken') || '33711409179';
+  
+  const epUrl = document.getElementById('epUrl');
+  const epToken = document.getElementById('epToken');
+  
+  if (epUrl) {
+    epUrl.value = savedUrl;
+    epUrl.addEventListener('input', savePublishCredentials);
+  }
+  if (epToken) {
+    epToken.value = savedToken;
+    epToken.addEventListener('input', savePublishCredentials);
+  }
+  
+  const pb = document.getElementById('proxyBase');
+  if (pb) {
+    pb.addEventListener('change',e=>{
+      proxyBase=e.target.value.trim().replace(/\/$/,'');
+      if(epUrl && !epUrl.value) {
+        epUrl.value=e.target.value;
+        savePublishCredentials();
+      }
+    });
+  }
 });
+
+function savePublishCredentials() {
+  const url = document.getElementById('epUrl').value.trim();
+  const token = document.getElementById('epToken').value.trim();
+  localStorage.setItem('energe_epUrl', url);
+  localStorage.setItem('energe_epToken', token);
+}
 </script>
+
+<!-- MODAL DE LINKEDIN -->
+<div class="ln-backdrop" id="linkedinModal">
+  <div class="ln-modal">
+    <div class="ln-header">
+      <h3>Crear publicación</h3>
+      <button class="ln-close" onclick="closeLinkedInModal()">&times;</button>
+    </div>
+    <div class="ln-body">
+      <div class="ln-user-bar">
+        <div class="ln-avatar">E</div>
+        <div class="ln-user-info">
+          <h4>Energe - Energía Solar</h4>
+          <div class="ln-privacy-dropdown">
+            <span>🌐 Publicar para Cualquiera</span>
+            <span style="font-size: 8px; margin-left: 4px;">▼</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ln-editor-container">
+        <div class="ln-toolbar">
+          <button class="ln-tb-btn" onclick="applyFormatting('bold')" title="Convertir selección a negrita"><b>B</b></button>
+          <button class="ln-tb-btn" onclick="applyFormatting('italic')" title="Convertir selección a cursiva"><i>I</i></button>
+          <button class="ln-tb-btn" onclick="applyFormatting('plain')" title="Quitar formato a la selección">🔤 Normal</button>
+          <div class="ln-tb-sep"></div>
+          <div class="ln-emojis">
+            <button class="ln-emoji-btn" onclick="insertEmoji('☀️')" title="Sol">☀️</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('🔋')" title="Batería">🔋</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('⚡')" title="Rayo">⚡</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('📈')" title="Gráfico">📈</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('💼')" title="Maletín">💼</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('🟢')" title="Círculo verde">🟢</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('🌱')" title="Brote">🌱</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('🏠')" title="Casa">🏠</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('🏢')" title="Edificio">🏢</button>
+            <button class="ln-emoji-btn" onclick="insertEmoji('💰')" title="Dinero">💰</button>
+          </div>
+        </div>
+        <textarea class="ln-textarea" id="linkedinText" placeholder="¿De qué quieres hablar?"></textarea>
+      </div>
+
+      <div class="ln-card-preview">
+        <div class="ln-card-img" id="lnCardImg"></div>
+        <div class="ln-card-info">
+          <div class="ln-card-title" id="lnCardTitle">Paneles solares en Argentina: Fomento extendido hasta 2030 | Energe</div>
+          <div class="ln-card-domain">energe.com.ar</div>
+        </div>
+      </div>
+    </div>
+    <div class="ln-footer">
+      <button class="btn-secondary" style="padding: 10px 20px;" onclick="closeLinkedInModal()">Cancelar</button>
+      <button class="btn-primary" style="padding: 10px 20px; display: flex; align-items: center; gap: 8px;" onclick="copyLinkedInText()">
+        <span>Copiar publicación</span> 📋
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN6YXDNHMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZN6YXDNHMR');
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog de Energía Solar Argentina | Noticias y Guías Fotovoltaicas | Energe</title>
+<meta content="Especialistas en energía solar en Argentina. Artículos sobre legislación, ROI, casos de éxito y guías técnicas para la transición energética industrial." name="description"/>
+<meta content="blog energía solar Argentina, noticias paneles solares, guías fotovoltaicas, generación distribuida Argentina, ROI solar industrial" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://energe.com.ar/blog.html" rel="canonical"/>
+<link href="https://energe.com.ar/blog.html" hreflang="es" rel="alternate"/>
+<link href="https://energe.com.ar/en/blog.html" hreflang="en" rel="alternate"/>
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="Blog de Energía Solar | Energe" property="og:title"/>
+<meta content="Artículos especializados sobre energía solar en Argentina: legislación, ROI, casos de éxito y novedades del sector fotovoltaico industrial." property="og:description"/>
+<meta content="https://energe.com.ar/images/obras/parque-santa-rosa.jpg" property="og:image"/>
+<meta content="https://energe.com.ar/blog.html" property="og:url"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Blog de Energía Solar | Energe" name="twitter:title"/>
+<meta content="Artículos especializados sobre energía solar en Argentina." name="twitter:description"/>
+<meta content="https://energe.com.ar/images/obras/parque-santa-rosa.jpg" name="twitter:image"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="images/favicon.png" rel="icon" type="image/png"/>
+<link href="style.css?v=1.01" rel="stylesheet"/><link href="chatbot.css" rel="stylesheet"/>
+<script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog Energe – Energía Solar Argentina",
+    "url": "https://energe.com.ar/blog.html",
+    "description": "Artículos especializados en energía solar fotovoltaica para la industria argentina.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Energe",
+      "url": "https://energe.com.ar",
+      "logo": {"@type": "ImageObject", "url": "https://energe.com.ar/images/logos/logo-energe.png"}
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="mockup-bar">Especialistas en soluciones Fotovoltaicas Industriales en Argentina</div>
+  <nav>
+    <div class="nav-logo"><a href="./"><img alt="Energe" src="images/logos/logo-energe.png" width="150" height="40" /></a></div>
+    <button aria-label="Abrir menú" class="nav-hamburger" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+        <ul class="nav-links" id="navLinks">
+      <li class="nav-dropdown">
+        <a href="#soluciones">SOLUCIONES <span class="dd-arrow">▾</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="soluciones-ongrid.html">SOLAR ON-GRID</a></li>
+          <li><a href="soluciones-offgrid-backup.html">OFF-GRID / BACKUP INDUSTRIAL</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#obras">OBRAS REALIZADAS</a></li>
+      <li><a href="blog.html">BLOG</a></li>
+      <li><a href="preguntas-frecuentes.html">FAQ</a></li>
+      <li><a href="contacto.html">CONTACTO</a></li>
+      <li><a class="nav-cta" href="cotizador-solar.html">COTIZÁ TU PROYECTO</a></li>
+      <li class="nav-lang-li"><a class="lang-btn active" href="./">ES</a><span class="lang-sep">|</span><a class="lang-btn" href="en/">EN</a></li>
+    </ul>
+  </nav>
+<!-- HERO BLOG -->
+  <header class="article-hero" style="height: 60vh;">
+    <img alt="Blog Energía Solar" src="images/hero-drone.jpg" width="1920" height="1080" />
+    <div class="article-hero-overlay"></div>
+    <div class="article-hero-content">
+      <div class="sol-breadcrumb">
+        <a href="./">Inicio</a>
+        <span>›</span>
+        <span>Blog</span>
+      </div>
+      <div class="sol-hero-tag">Recursos y conocimiento</div>
+      <h1 class="sol-hero-title">TODO SOBRE<br><em>ENERGÍA SOLAR</em></h1>
+      <p class="sol-hero-sub">Legislación, análisis financiero, casos de éxito y tendencias del sector fotovoltaico industrial.</p>
+    </div>
+  </header>
+<!-- FILTRO CATEGORÍAS -->
+<div class="blog-cats-bar" id="catBar">
+<button class="blog-cat-btn active" data-cat="all">
+    Todos
+   </button>
+<button class="blog-cat-btn" data-cat="legal">
+    Marco Legal
+   </button>
+<button class="blog-cat-btn" data-cat="roi">
+    Finanzas &amp; ROI
+   </button>
+<button class="blog-cat-btn" data-cat="casos">
+    Casos de Éxito
+   </button>
+<button class="blog-cat-btn" data-cat="prensa">
+    Prensa
+   </button>
+<button class="blog-cat-btn" data-cat="industria">
+    Industria &amp; Off-Grid
+   </button>
+</div>
+<!-- BUSCADOR Y FILTROS DE FECHA -->
+<div class="blog-controls-panel">
+  <div class="blog-search-box">
+    <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="text" id="blogSearch" placeholder="Buscar publicaciones por título, categoría o contenido..." />
+  </div>
+  <div class="blog-filter-box">
+    <select id="blogDateFilter" class="blog-select">
+      <option value="all">📅 Buscar por fecha...</option>
+      <option value="2026">2026</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+      <option value="2020-before">2020 y anteriores</option>
+    </select>
+  </div>
+</div>
+
+<!-- ARTÍCULOS -->
+<div class="blog-index-wrap">
+<div class="blog-index-grid" id="blogGrid">
+<a class="bcard" data-cat="legal" href="blog-rimi-2026-energia-solar-pymes.html">
+<div class="bcard-img">
+<img alt="RIMI 2026 Beneficios Fiscales Energía Solar Argentina" loading="lazy" src="images/blog-rimi-2026.jpg" width="600" height="400"/>
+<span class="bcard-cat cat-legal">Marco Legal</span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">14 May 2026</span>
+<span class="bcard-read">6 min</span>
+</div>
+<h2 class="bcard-title">RIMI 2026: La guía definitiva para PyMEs que buscan invertir en energía solar</h2>
+<p class="bcard-excerpt">Descubre cómo el nuevo régimen facilita la inversión en paneles solares con devolución de IVA y beneficios fiscales.</p>
+</div>
+</a>
+<a class="bcard" data-cat="roi" href="blog-aumento-tarifas-industriales-energia-solar.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares industriales ahorro tarifas Argentina" loading="lazy" src="images/blog-tarifas-solar.jpg" width="600" height="400"/>
+<span class="bcard-cat cat-roi">Finanzas & ROI</span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">14 May 2026</span>
+<span class="bcard-read">8 min</span>
+</div>
+<h2 class="bcard-title">Aumento de tarifas en industrias: por qué la energía solar es la mejor defensa de tu rentabilidad</h2>
+<p class="bcard-excerpt">Frente a la quita de subsidios y el aumento de costos mayoristas, analizamos cómo fijar el precio de la energía por 25 años.</p>
+</div>
+</a>
+<a class="bcard" data-cat="industria" href="blog-vaca-muerta-energia-offgrid.html">
+<div class="bcard-img">
+<img alt="Sistema off-grid shelter solar petróleo Vaca Muerta Patagonia Argentina" loading="lazy" src="images/shelter-backup.jpg" width="600" height="400"/>
+<span class="bcard-cat" style="background:#5c3d1e">Industria & Off-Grid</span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">12 May 2026</span>
+<span class="bcard-read">10 min</span>
+</div>
+<h2 class="bcard-title">Energía off-grid en Vaca Muerta: la solución que la industria petrolera necesita</h2>
+<p class="bcard-excerpt">Con 578.000 b/d de producción y yacimientos a 200 km de la red, analizamos por qué los sistemas autónomos reemplazan al diésel en Patagonia.</p>
+</div>
+</a>
+<a class="bcard" data-cat="casos" href="blog-mendoza-solar.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Parque Solar Santa Rosa 6.6 MW Mendoza Argentina — capital solar industrial - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg" width="600" height="400"/>
+<span class="bcard-cat cat-casos">
+       Casos de Éxito
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        5 Feb 2025
+       </span>
+<span class="bcard-read">
+        7 min de lectura
+       </span>
+</div>
+<h2 class="bcard-title">
+       Mendoza, capital solar de Argentina: por qué las industrias eligen esta provincia
+      </h2>
+<p class="bcard-excerpt">
+       Irradiación de clase mundial, industria de alto consumo y marco normativo ágil. Descubrí por qué el 40% de las instalaciones fotovoltaicas industriales más grandes del país están en Cuyo.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="roi" href="blog-roi-solar-industrial.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Instalación fotovoltaica Bodega Trivento Mendoza — retorno de inversión energía solar industrial Argentina - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/bodega-trivento.jpeg" width="600" height="400"/>
+<span class="bcard-cat cat-roi">
+       Finanzas &amp; ROI
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        22 Ene 2025
+       </span>
+<span class="bcard-read">
+        9 min de lectura
+       </span>
+</div>
+<h2 class="bcard-title">
+       ¿Cuánto tarda en recuperarse la inversión en energía solar industrial?
+      </h2>
+<p class="bcard-excerpt">
+       Analizamos los 4 factores clave que determinan el payback de un sistema fotovoltaico en Argentina y te mostramos un ejemplo real con números actualizados a 2025.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="legal" href="blog-ley-generacion-distribuida.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Legislatura Provincial de Mendoza con instalación fotovoltaica — Ley 27.424 Generación Distribuida Argentina - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/legislatura-mendoza.jpg" width="600" height="400"/>
+<span class="bcard-cat cat-legal">
+       Marco Legal
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        15 Ene 2025
+       </span>
+<span class="bcard-read">
+        8 min de lectura
+       </span>
+</div>
+<h2 class="bcard-title">
+       Ley 27.424: cómo la Generación Distribuida impulsa la energía solar en Argentina
+      </h2>
+<p class="bcard-excerpt">
+       La normativa que permite a empresas e industrias generar su propia energía e inyectar excedentes a la red eléctrica. Balance neto, prosumidores y todo lo que necesitás saber para aprovecharla en tu industria.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-ecocuyo-2024-energe-17-anos.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Pionera en energía solar: Energe cumple 17 años - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg" width="600" height="400"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        14 Abr 2024
+       </span>
+<span class="bcard-read">
+        5 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Pionera en energía solar: Energe cumple 17 años
+      </h2>
+<p class="bcard-excerpt">
+       La empresa celebra su trayectoria con más de 10.000 proyectos instalados y fábrica propia.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-ecocuyo-2023-expansion-rosario.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Expansión nacional: Energe en Rosario - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        14 Jul 2023
+       </span>
+<span class="bcard-read">
+        5 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Expansión nacional: Energe desembarcó en Rosario
+      </h2>
+<p class="bcard-excerpt">
+       Energe abrió su octava sucursal en Argentina consolidando su estrategia de crecimiento.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-ecocuyo-2023-great-place-to-work.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Energe GPTW - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        27 Mar 2023
+       </span>
+<span class="bcard-read">
+        5 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Energe: uno de los mejores lugares para trabajar
+      </h2>
+<p class="bcard-excerpt">
+       La empresa obtuvo la certificación Great Place to Work 2023 en Argentina.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-pv-magazine-2020-parque-solar-mendoza.html">
+<div class="bcard-img">
+<img alt="PV Magazine Parque Solar" loading="lazy" src="https://www.pv-magazine-latam.com/wp-content/uploads/sites/3/2020/08/1MAR_3797-768x501.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        12 Ago 2020
+       </span>
+<span class="bcard-read">
+        6 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       El parque solar más grande de Mendoza
+      </h2>
+<p class="bcard-excerpt">
+       Detalles técnicos de la obra de 6,6 MW inaugurada en Santa Rosa.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-mendovoz-2020-parque-solar-santa-rosa.html">
+<div class="bcard-img">
+<img alt="Inauguración Parque Solar Santa Rosa" loading="lazy" src="https://www.mendovoz.com/u/fotografias/m/2020/8/10/f685x385-133233_170926_5050.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        11 Ago 2020
+       </span>
+<span class="bcard-read">
+        6 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Suarez inauguró el Parque Solar de Santa Rosa
+      </h2>
+<p class="bcard-excerpt">
+       El parque solar más grande de Mendoza, construido íntegramente por Energe.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-mendovoz-2020-climatizadores-solares.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Climatizadores solares - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        05 Jun 2020
+       </span>
+<span class="bcard-read">
+        5 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Climatizadores solares: calefacción económica
+      </h2>
+<p class="bcard-excerpt">
+       Una alternativa de ventilación segura y ahorro de hasta un 70% en calefacción.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-mendovoz-2019-energe-macri.html">
+<div class="bcard-img">
+<img alt="Energe Maipú Macri" loading="lazy" src="https://www.mendovoz.com/u/fotografias/m/2019/7/16/f685x385-102662_140355_5050.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        16 Jul 2019
+       </span>
+<span class="bcard-read">
+        4 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       Energe, la empresa maipucina que eligió Macri
+      </h2>
+<p class="bcard-excerpt">
+       Crónica de la visita presidencial a las instalaciones de la empresa en Maipú.
+      </p>
+</div>
+</a>
+<a class="bcard" data-cat="prensa" href="blog-casarosada-2019-macri-visito-energe.html">
+<div class="bcard-img">
+<img alt="Instalación de paneles solares fotovoltaicos en Macri visitó Energe - Proyecto de Energía Solar Energe Argentina" loading="lazy" src="images/obras/parque-santa-rosa.jpg"/>
+<span class="bcard-cat" style="background:#d4721a">
+       Prensa
+      </span>
+</div>
+<div class="bcard-body">
+<div class="bcard-meta">
+<span class="bcard-date">
+        15 Jul 2019
+       </span>
+<span class="bcard-read">
+        4 min
+       </span>
+</div>
+<h2 class="bcard-title">
+       El presidente Macri visitó la sede de la empresa ENERGE
+      </h2>
+<p class="bcard-excerpt">
+       Reconocimiento nacional a la trayectoria de la pyme solar mendocina.
+      </p>
+</div>
+</a>
+</div>
+</div>
+  <!-- Footer -->
+    <footer>
+    <div class="ft-main">
+      <div class="ft-col ft-brand">
+        <div class="ft-logo"><img alt="Energe" src="images/logos/logo-energe-footer.png" width="120" height="32" /></div>
+        <p class="ft-desc"><strong>Somos</strong> una empresa dedicada al desarrollo de soluciones de energía solar
+          térmica y fotovoltaica. Desde 2007, impulsamos el ahorro energético y el cuidado del ambiente.</p>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-title">Contacto</div>
+        <ul class="ft-contact-list">
+          <li>
+            <svg class="ft-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z">
+              </path>
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.057 23.882a.5.5 0 0 0 .606.61l6.162-1.615A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.659-.523-5.168-1.432l-.37-.22-3.83 1.004.979-3.713-.241-.379A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z">
+              </path>
+            </svg>
+            <span>261 242 4493</span>
+          </li>
+          <li>
+            <svg class="ft-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>contacto@energe.com.ar</span>
+          </li>
+          <li>
+            <svg class="ft-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <a href="https://www.google.com/maps/dir/-32.9449472,-68.7767552/Energe+Mendoza,+Galpon+Interno,+Alsina+2550,+M5511+Maip%C3%BA,+Mendoza/@-32.9433071,-68.7861379,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x967e0c3f7917f36f:0xbcb6b78f61739d39!2m2!1d-68.7855175!2d-32.9415981?entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
+              rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Alsina 2550, Maipú, Mendoza</a>
+          </li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-title">Accesos</div>
+        <ul class="ft-nav-list">
+          <li><a href="./">Home</a></li>
+          
+          <li><a href="soluciones-ongrid.html">Solar On-Grid</a></li>
+          <li><a href="soluciones-offgrid-backup.html">Off-Grid / Backup</a></li>
+          
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="preguntas-frecuentes.html">FAQ</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          
+          <li><a href="soporte.html">Servicio Postventa</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-title">Redes sociales</div>
+        <ul class="ft-social-list">
+          <li><a href="https://www.facebook.com/energe.energiarenovable" rel="noopener" target="_blank"><svg
+                class="ft-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
+                </path>
+              </svg><span>energe.energiarenovable</span></a></li>
+          <li><a href="https://www.instagram.com/energe.ar" rel="noopener" target="_blank"><svg class="ft-icon"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z">
+                </path>
+              </svg><span>@energe.ar</span></a></li>
+          <li><a href="https://www.linkedin.com/company/energe" rel="noopener" target="_blank"><svg class="ft-icon"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                </path>
+              </svg><span>energe</span></a></li>
+          <li><a href="https://www.youtube.com/@energe_sa" rel="noopener" target="_blank"><svg class="ft-icon"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z">
+                </path>
+              </svg><span>@energe_sa</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span><a href="privacidad.html">Política de privacidad</a></span>
+      <span><a href="legales.html">Legales</a></span>
+    </div>
+  </footer>
+<script>
+   (function(){
+  // Mobile Nav Toggle
+  var btn = document.getElementById('navToggle');
+  var nav = document.getElementById('navLinks');
+  if (btn && nav) {
+    btn.addEventListener('click', function(){
+      var open = nav.classList.toggle('nav-open');
+      btn.classList.toggle('is-open', open);
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ nav.classList.remove('nav-open'); btn.classList.remove('is-open'); });
+    });
+  }
+
+  // Unified Blog Filtering
+  var activeCategory = 'all';
+  var searchQuery = '';
+  var activeDateFilter = 'all';
+
+  var searchInput = document.getElementById('blogSearch');
+  var dateSelect = document.getElementById('blogDateFilter');
+  var catButtons = document.querySelectorAll('.blog-cat-btn');
+  var cards = document.querySelectorAll('#blogGrid .bcard');
+
+  function applyFilters() {
+    cards.forEach(function(card) {
+      // Category Match
+      var cardCat = card.dataset.cat || '';
+      var matchesCat = (activeCategory === 'all' || cardCat === activeCategory);
+
+      // Search Match
+      var titleText = card.querySelector('.bcard-title') ? card.querySelector('.bcard-title').textContent.toLowerCase() : '';
+      var excerptText = card.querySelector('.bcard-excerpt') ? card.querySelector('.bcard-excerpt').textContent.toLowerCase() : '';
+      var catLabel = card.querySelector('.bcard-cat') ? card.querySelector('.bcard-cat').textContent.toLowerCase() : '';
+      var matchesSearch = searchQuery === '' || 
+                          titleText.includes(searchQuery) || 
+                          excerptText.includes(searchQuery) || 
+                          catLabel.includes(searchQuery);
+
+      // Date Match
+      var dateText = card.querySelector('.bcard-date') ? card.querySelector('.bcard-date').textContent.toLowerCase() : '';
+      var matchesDate = true;
+      if (activeDateFilter !== 'all') {
+        var year = '';
+        var matches = dateText.match(/\b(2019|2020|2023|2024|2025|2026)\b/);
+        if (matches) {
+          year = matches[1];
+        }
+        if (activeDateFilter === '2020-before') {
+          matchesDate = (year === '2020' || year === '2019' || year === '');
+        } else {
+          matchesDate = (year === activeDateFilter);
+        }
+      }
+
+      // Show/Hide
+      if (matchesCat && matchesSearch && matchesDate) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Category event listeners
+  catButtons.forEach(function(b){
+    b.addEventListener('click', function(){
+      catButtons.forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      activeCategory = b.dataset.cat;
+      applyFilters();
+    });
+  });
+
+  // Search event listener
+  if (searchInput) {
+    searchInput.addEventListener('input', function(){
+      searchQuery = searchInput.value.toLowerCase().trim();
+      applyFilters();
+    });
+  }
+
+  // Date filter event listener
+  if (dateSelect) {
+    if (dateSelect.value === 'all') {
+      dateSelect.style.color = 'var(--text-muted)';
+    } else {
+      dateSelect.style.color = 'var(--text)';
+    }
+
+    dateSelect.addEventListener('change', function(){
+      activeDateFilter = dateSelect.value;
+      if (dateSelect.value === 'all') {
+        dateSelect.style.color = 'var(--text-muted)';
+      } else {
+        dateSelect.style.color = 'var(--text)';
+      }
+      applyFilters();
+    });
+  }
+})();
+  </script>
+<script src="chatbot.js"></script></body>
+</html>

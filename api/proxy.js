@@ -1,21 +1,41 @@
 const https = require('https');
 
-const GEMINI_KEY = process.env.GEMINI_KEY || 'AIzaSyB-1oGZOAq2UMIYcniKFyioXVmnQniRxCc';
+const GEMINI_KEY = process.env.GEMINI_KEY || 'AIzaSyB-1oGZOAq2UMlYcniKFyioXVmnQniRxCc';
 const MODELS = [
-  'gemini-2.0-flash',
-  'gemini-1.5-flash',
-  'gemini-1.5-flash-8b',
+  'gemini-3.5-flash',
+  'gemini-3.1-flash-lite',
+  'gemini-2.5-flash',
 ];
 
 function geminiRequest(model, prompt) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.8, maxOutputTokens: 2048 }
+      generationConfig: { 
+        temperature: 0.8, 
+        maxOutputTokens: 8192,
+        responseMimeType: 'application/json',
+        responseSchema: {
+          type: 'OBJECT',
+          properties: {
+            title: { type: 'STRING' },
+            excerpt: { type: 'STRING' },
+            body: { type: 'STRING' },
+            tags: { 
+              type: 'ARRAY', 
+              items: { type: 'STRING' } 
+            },
+            slug: { type: 'STRING' },
+            metaDesc: { type: 'STRING' },
+            readTime: { type: 'STRING' }
+          },
+          required: ['title', 'excerpt', 'body', 'tags', 'slug', 'metaDesc', 'readTime']
+        }
+      }
     });
     const options = {
       hostname: 'generativelanguage.googleapis.com',
-      path: `/v1/models/${model}:generateContent?key=${GEMINI_KEY}`,
+      path: `/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
     };
