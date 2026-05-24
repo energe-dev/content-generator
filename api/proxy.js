@@ -1,6 +1,6 @@
 const https = require('https');
 
-const GEMINI_KEY = process.env.GEMINI_KEY || 'AIzaSyB-1oGZOAq2UMlYcniKFyioXVmnQniRxCc';
+const GEMINI_KEY = process.env.GEMINI_KEY;
 const MODELS = [
   'gemini-3.5-flash',
   'gemini-3.1-flash-lite',
@@ -57,6 +57,10 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Método no permitido' });
+
+  if (!GEMINI_KEY) {
+    return res.status(200).json({ ok: false, error: 'No se configuró la variable de entorno GEMINI_KEY. Por favor configúrala en Vercel o en un archivo .env local.' });
+  }
 
   const { prompt } = req.body || {};
   if (!prompt) return res.status(400).json({ ok: false, error: 'Sin prompt' });
