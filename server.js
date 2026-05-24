@@ -19,7 +19,7 @@ if (fs.existsSync(envPath)) {
   console.log('Loaded local .env environment variables.');
 }
 
-const PORT = 3000;
+const PORT = 3002;
 
 const server = http.createServer((req, res) => {
   console.log(`${req.method} ${req.url}`);

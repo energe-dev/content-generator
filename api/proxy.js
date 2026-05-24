@@ -58,6 +58,10 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Método no permitido' });
 
+  if (req.body && req.body.checkKey === true) {
+    return res.status(200).json({ ok: true, hasKey: !!GEMINI_KEY });
+  }
+
   if (!GEMINI_KEY) {
     return res.status(200).json({ ok: false, error: 'No se configuró la variable de entorno GEMINI_KEY. Por favor configúrala en Vercel o en un archivo .env local.' });
   }

@@ -1097,7 +1097,7 @@
 
     <!-- PASO 1 -->
     <div class="section active" id="step1">
-      <div class="proxy-info" style="background:#fff3cd; border-color:#ffeeba; color:#856404;">
+      <div id="apiKeyWarning" class="proxy-info" style="background:#fff3cd; border-color:#ffeeba; color:#856404;">
         <strong>⚠️ Configuración de API Key requerida</strong>
         Para que el motor de IA funcione en producción, debés configurar la variable de entorno
         <strong>GEMINI_KEY</strong> en Vercel (o crear un archivo local <code>.env</code> con
@@ -2098,7 +2098,35 @@ Respondé SOLO con JSON válido sin markdown:
           }
         });
       }
+
+      checkApiKeyPresence();
     });
+
+    async function checkApiKeyPresence() {
+      const warningEl = document.getElementById('apiKeyWarning');
+      if (!warningEl) return;
+
+      if (localStorage.getItem('GEMINI_KEY')) {
+        warningEl.style.display = 'none';
+        return;
+      }
+
+      try {
+        const r = await fetch('/api/proxy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ checkKey: true })
+        });
+        if (r.ok) {
+          const d = await r.json();
+          if (d.ok && d.hasKey) {
+            warningEl.style.display = 'none';
+          }
+        }
+      } catch (e) {
+        console.warn('No se pudo verificar la presencia de la API key remota:', e);
+      }
+    }
 
     function savePublishCredentials() {
       const url = document.getElementById('epUrl').value.trim();
