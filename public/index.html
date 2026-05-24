@@ -1130,6 +1130,7 @@
           </div>
         </div>
         <button class="btn-primary" onclick="fetchNews()" id="fetchBtn">🔍 Buscar noticias virales</button>
+        <div id="aiConnectionStatus" style="font-size: 13px; margin-top: 12px; font-weight: 500; text-align: center; border-radius: 6px; padding: 8px 12px; display: none;"></div>
       </div>
       <div id="newsArea" style="display:none">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
@@ -1474,12 +1475,30 @@ Devolvé SOLO un objeto JSON válido (sin markdown ni bloques de código \`\`\`)
         if (data.news && data.news.length > 0) {
           renderNews(data.news);
           document.getElementById('newsArea').style.display = 'block';
+
+          const statusEl = document.getElementById('aiConnectionStatus');
+          if (statusEl) {
+            statusEl.style.display = 'block';
+            statusEl.style.background = '#d4edda';
+            statusEl.style.color = '#155724';
+            statusEl.style.border = '1px solid #c3e6cb';
+            statusEl.innerHTML = '🟢 <strong>Motor de IA Activo:</strong> Noticias generadas en tiempo real con Gemini 1.5/2.5-flash.';
+          }
         } else {
           throw new Error('Formato de respuesta incorrecto');
         }
       } catch (e) {
         console.warn('Error al buscar noticias dinámicas con Gemini, usando fallback local...', e);
-        // Fallback a las noticias estáticas
+
+        const statusEl = document.getElementById('aiConnectionStatus');
+        if (statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.style.background = '#fff3cd';
+          statusEl.style.color = '#856404';
+          statusEl.style.border = '1px solid #ffeeba';
+          statusEl.innerHTML = `⚠️ <strong>Usando listado de contingencia local (Fallback):</strong> El servidor de IA reportó un error (${e.message || 'error de red o API key inactiva'}).`;
+        }
+
         const filtered = NEWS.filter(n => n.filters.some(f => activeFilters.has(f)));
         renderNews(filtered);
         document.getElementById('newsArea').style.display = 'block';
