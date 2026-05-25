@@ -1411,9 +1411,9 @@
       return text;
     }
 
-    async function callProxy(prompt) {
+    async function callProxy(prompt, type = 'article') {
       try {
-        const r = await fetch('/api/proxy', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
+        const r = await fetch('/api/proxy', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt, type }) });
 
         // Si da error de servidor no soportado o ausente (405 o 404 en Live Server), usamos fallback directo
         if (r.status === 405 || r.status === 404) {
@@ -1464,7 +1464,7 @@ Devolvé SOLO un objeto JSON válido (sin markdown ni bloques de código \`\`\`)
 }`;
 
       try {
-        const raw = await callProxy(prompt);
+        const raw = await callProxy(prompt, 'news');
         let clean = raw.trim();
         const m = clean.match(/```(?:json)?\s*([\s\S]*?)```/);
         if (m) clean = m[1].trim();
@@ -1637,7 +1637,7 @@ IMPORTANTE: NUNCA uses comillas dobles (") dentro de los textos generados. Si ne
 Respondé SOLO con JSON válido sin markdown:
 {"title":"título SEO máx 65 chars","excerpt":"bajada máx 155 chars","body":"cuerpo con párrafos separados por \\n\\n y subtítulos con ## al inicio. Usa comillas simples si necesitas citar algo.","tags":["tag1","tag2","tag3","tag4","tag5"],"slug":"slug-seo","metaDesc":"meta descripción máx 155 chars","readTime":"X min"}`;
       try {
-        const raw = await callProxy(prompt);
+        const raw = await callProxy(prompt, 'article');
         let clean = raw.trim();
         const m = clean.match(/```(?:json)?\s*([\s\S]*?)```/);
         if (m) clean = m[1].trim();

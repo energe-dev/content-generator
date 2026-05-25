@@ -8,31 +8,63 @@ const MODELS = [
   'gemini-1.5-pro',
 ];
 
-function geminiRequest(model, prompt) {
+const ARTICLE_SCHEMA = {
+  type: 'OBJECT',
+  properties: {
+    title: { type: 'STRING' },
+    excerpt: { type: 'STRING' },
+    body: { type: 'STRING' },
+    tags: { 
+      type: 'ARRAY', 
+      items: { type: 'STRING' } 
+    },
+    slug: { type: 'STRING' },
+    metaDesc: { type: 'STRING' },
+    readTime: { type: 'STRING' }
+  },
+  required: ['title', 'excerpt', 'body', 'tags', 'slug', 'metaDesc', 'readTime']
+};
+
+const NEWS_SCHEMA = {
+  type: 'OBJECT',
+  properties: {
+    news: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          id: { type: 'INTEGER' },
+          title: { type: 'STRING' },
+          summary: { type: 'STRING' },
+          cat: { type: 'STRING' },
+          catLabel: { type: 'STRING' },
+          score: { type: 'INTEGER' },
+          src: { type: 'STRING' },
+          filters: {
+            type: 'ARRAY',
+            items: { type: 'STRING' }
+          }
+        },
+        required: ['id', 'title', 'summary', 'cat', 'catLabel', 'score', 'src', 'filters']
+      }
+    }
+  },
+  required: ['news']
+};
+
+function geminiRequest(model, prompt, schema) {
   return new Promise((resolve, reject) => {
+    const config = {
+      temperature: 0.8,
+      maxOutputTokens: 8192
+    };
+    if (schema) {
+      config.responseMimeType = 'application/json';
+      config.responseSchema = schema;
+    }
     const body = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { 
-        temperature: 0.8, 
-        maxOutputTokens: 8192,
-        responseMimeType: 'application/json',
-        responseSchema: {
-          type: 'OBJECT',
-          properties: {
-            title: { type: 'STRING' },
-            excerpt: { type: 'STRING' },
-            body: { type: 'STRING' },
-            tags: { 
-              type: 'ARRAY', 
-              items: { type: 'STRING' } 
-            },
-            slug: { type: 'STRING' },
-            metaDesc: { type: 'STRING' },
-            readTime: { type: 'STRING' }
-          },
-          required: ['title', 'excerpt', 'body', 'tags', 'slug', 'metaDesc', 'readTime']
-        }
-      }
+      generationConfig: config
     });
     const options = {
       hostname: 'generativelanguage.googleapis.com',
@@ -67,13 +99,20 @@ module.exports = async (req, res) => {
     return res.status(200).json({ ok: false, error: 'No se configuró la variable de entorno GEMINI_KEY. Por favor configúrala en Vercel o en un archivo .env local.' });
   }
 
-  const { prompt } = req.body || {};
+  const { prompt, type } = req.body || {};
   if (!prompt) return res.status(400).json({ ok: false, error: 'Sin prompt' });
+
+  let schema = ARTICLE_SCHEMA;
+  if (type === 'news') {
+    schema = NEWS_SCHEMA;
+  } else if (type === 'article') {
+    schema = ARTICLE_SCHEMA;
+  }
 
   let lastError = '';
   for (const model of MODELS) {
     try {
-      const { status, body } = await geminiRequest(model, prompt);
+      const { status, body } = await geminiRequest(model, prompt, schema);
       const data = JSON.parse(body);
       if (data.error) {
         lastError = `${model}: ${data.error.message}`;
